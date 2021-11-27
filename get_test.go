@@ -1,0 +1,54 @@
+package yeelight
+
+import (
+	"context"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	"github.com/stretchr/testify/assert"
+)
+
+var (
+	testCtx       = context.Background()
+	testHost      = "im_test_home"
+	testRequestID = 123
+)
+
+func TestClient_Get(t *testing.T) {
+	tests := map[string]struct {
+		properties []string
+		tr         transportFn
+
+		exp    map[string]string
+		expErr error
+	}{
+		"correct": {
+			properties: []string{PropertyPower, PropertySat},
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				assert.Equal(t, testCtx, ctx)
+				assert.Equal(t, testHost, host)
+				assert.Equal(t, `{"id":123,"method":"get_prop","params":["power","sat"]}`, raw)
+
+				return []byte(`{"id":1, "result":["on", "100"]}`), nil
+			},
+			exp: map[string]string{PropertyPower: "on", PropertySat: "100"},
+		},
+		"wrong_number_of_result_items": {
+			properties: []string{PropertyPower, PropertySat},
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return []byte(`{"id":1, "result":["on"]}`), nil
+			},
+			expErr: ErrWrongNumberOfResultItems,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			got, err := Client{transport: tt.tr}.Get(testCtx, testHost, testRequestID, tt.properties)
+
+			require.Equal(t, tt.expErr, err)
+			require.Equal(t, tt.exp, got)
+		})
+	}
+}
