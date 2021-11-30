@@ -11,6 +11,8 @@ const (
 var (
 	// ErrWrongAffect wrong affect name
 	ErrWrongAffect = errors.New("wrong affect name")
+
+	ErrDurationTooSmall = errors.New("duration too small")
 )
 
 // IsAffect return true if affect name is correct

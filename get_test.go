@@ -4,15 +4,15 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var (
 	testCtx       = context.Background()
 	testHost      = "im_test_home"
 	testRequestID = 123
+	testResultOk  = []byte(`{"id":123, "result":["ok"]}`)
 )
 
 func TestClient_Get(t *testing.T) {
@@ -40,6 +40,17 @@ func TestClient_Get(t *testing.T) {
 				return []byte(`{"id":1, "result":["on"]}`), nil
 			},
 			expErr: ErrWrongNumberOfResultItems,
+		},
+		"empty_properties_list": {
+			properties: []string{},
+			exp:        map[string]string{},
+		},
+		"err_connection": {
+			properties: []string{PropertyPower, PropertySat},
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
 		},
 	}
 

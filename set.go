@@ -12,11 +12,7 @@ func (c Client) SetName(ctx context.Context, host string, requestID int, name st
 		return err
 	}
 
-	if !d.IsOk() {
-		return errors.New(d.String())
-	}
-
-	return nil
+	return d.ToError()
 }
 
 // SetColorTemperature method is used to change the color temperature of a smart LED

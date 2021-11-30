@@ -5,8 +5,15 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net"
+	"os"
+)
+
+var (
+	ErrMissingPortInAddress = errors.New("missing port in address")
+	ErrConnect              = errors.New("connect error")
 )
 
 type RawResponse struct {
@@ -20,6 +27,10 @@ func (rr RawResponse) String() string {
 }
 
 func (rr RawResponse) ToError() error {
+	if rr.Error == nil {
+		return nil
+	}
+
 	panic("implement me")
 }
 
@@ -62,8 +73,8 @@ func defaultTransport(ctx context.Context, host string, raw string) ([]byte, err
 	var d net.Dialer
 
 	conn, err := d.DialContext(ctx, "tcp", host)
-	if nil != err {
-		return nil, fmt.Errorf("cannot open connection to %s. %s", host, err)
+	if err != nil {
+		return nil, processDialError(err)
 	}
 
 	if _, err := fmt.Fprint(conn, raw+crlf); err != nil {
@@ -76,4 +87,27 @@ func defaultTransport(ctx context.Context, host string, raw string) ([]byte, err
 	}
 
 	return res, nil
+}
+
+func processDialError(err error) error {
+	e, ok := err.(*net.OpError)
+	if !ok {
+		// return as is
+		return err
+	}
+
+	if ae, ok := e.Err.(*net.AddrError); ok {
+		if ae.Err == "missing port in address" {
+			return ErrMissingPortInAddress
+		}
+	}
+
+	if se, ok := e.Err.(*os.SyscallError); ok {
+		if se.Syscall == "connect" {
+			return ErrConnect
+		}
+	}
+
+	// return as is
+	return err
 }
