@@ -8,24 +8,24 @@ import (
 // list of all supported methods
 const (
 	MethodGetProp               = "get_prop"
-	MethodSetColorTemperature   = "set_ct_abx"       // TODO:
-	MethodSetRGB                = "set_rgb"          // TODO:
-	MethodSetHSV                = "set_hsv"          // TODO:
-	MethodSetBright             = "set_bright"       // TODO:
-	MethodSetPower              = "set_power"        // TODO:
-	MethodToggle                = "toggle"           // TODO:
-	MethodSetDefault            = "set_default"      // TODO:
-	MethodStartCF               = "start_cf"         // TODO:
-	MethodStopCF                = "stop_cf"          // TODO:
-	MethodSetScene              = "set_scene"        // TODO:
-	MethodCronAdd               = "cron_add"         // TODO:
-	MethodCronGet               = "cron_get"         // TODO:
-	MethodCronDelete            = "cron_del"         // TODO:
-	MethodSetAdjust             = "set_adjust"       // TODO:
-	MethodSetMusic              = "set_music"        // TODO:
-	MethodSetName               = "set_name"         // TODO:
-	MethodSetBgRGB              = "bg_set_rgb"       // TODO:
-	MethodSetBgHSV              = "bg_set_hsv"       // TODO:
+	MethodSetColorTemperature   = "set_ct_abx" // TODO:
+	MethodSetRGB                = "set_rgb"    // TODO:
+	MethodSetHSV                = "set_hsv"
+	MethodSetBright             = "set_bright"  // TODO:
+	MethodSetPower              = "set_power"   // TODO:
+	MethodToggle                = "toggle"      // TODO:
+	MethodSetDefault            = "set_default" // TODO:
+	MethodStartCF               = "start_cf"    // TODO:
+	MethodStopCF                = "stop_cf"     // TODO:
+	MethodSetScene              = "set_scene"   // TODO:
+	MethodCronAdd               = "cron_add"    // TODO:
+	MethodCronGet               = "cron_get"    // TODO:
+	MethodCronDelete            = "cron_del"    // TODO:
+	MethodSetAdjust             = "set_adjust"  // TODO:
+	MethodSetMusic              = "set_music"   // TODO:
+	MethodSetName               = "set_name"
+	MethodSetBgRGB              = "bg_set_rgb"
+	MethodSetBgHSV              = "bg_set_hsv"
 	MethodSetBgColorTemperature = "bg_set_ct_abx"    // TODO:
 	MethodBgStartCF             = "bg_start_cf"      // TODO:
 	MethodBgStopCF              = "bg_stop_cf"       // TODO:
@@ -44,12 +44,15 @@ const (
 	MethodBgAdjustColor         = "bg_adjust_color"  // TODO:
 )
 
+// Client is instance of yeelight SDK
+// Please use New() for creating
 type Client struct {
 	transport transportFn
 }
 
 type transportFn func(ctx context.Context, host string, raw string) ([]byte, error)
 
+// New create new client
 func New() Client {
 	return Client{transport: defaultTransport}
 }

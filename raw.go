@@ -67,6 +67,15 @@ func (c Client) Raw(ctx context.Context, host string, id int, method string, par
 	return target, nil
 }
 
+func (c Client) rawWithOk(ctx context.Context, host string, requestID int, method string, params ...interface{}) error {
+	d, err := c.Raw(ctx, host, requestID, method, params...)
+	if err != nil {
+		return err
+	}
+
+	return d.ToError()
+}
+
 func defaultTransport(ctx context.Context, host string, raw string) ([]byte, error) {
 	const crlf = "\r\n"
 

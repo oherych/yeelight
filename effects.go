@@ -13,6 +13,9 @@ var (
 	ErrWrongAffect = errors.New("wrong affect name")
 
 	ErrDurationTooSmall = errors.New("duration too small")
+	ErrWrongRGBValue = errors.New("wrong RGB value")
+	ErrWrongHueValue = errors.New("wrong Hue value")
+	ErrWrongSatValue = errors.New("wrong Sat value")
 )
 
 // IsAffect return true if affect name is correct
