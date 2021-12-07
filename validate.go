@@ -45,3 +45,19 @@ func ValidateSat(value uint) error {
 
 	return nil
 }
+
+func ValidateBright(value uint) error {
+	if value < 0 || value > 100 {
+		return ErrWrongBrightValue
+	}
+
+	return nil
+}
+
+func ValidateColorTemperature(value uint) error {
+	if value < 1700 || value > 6500 {
+		return ErrWrongColorTemperature
+	}
+
+	return nil
+}
