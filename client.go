@@ -12,8 +12,8 @@ const (
 	MethodSetRGB                = "set_rgb"
 	MethodSetHSV                = "set_hsv"
 	MethodSetBright             = "set_bright"
-	MethodSetPower              = "set_power" // TODO:
-	MethodToggle                = "toggle"    // TODO:
+	MethodSetPower              = "set_power"
+	MethodToggle                = "toggle"
 	MethodSetDefault            = "set_default"
 	MethodStartCF               = "start_cf"   // TODO:
 	MethodStopCF                = "stop_cf"    // TODO:
@@ -31,10 +31,10 @@ const (
 	MethodBgStopCF              = "bg_stop_cf"   // TODO:
 	MethodBgSetScene            = "bg_set_scene" // TODO:
 	MethodBgSetDefault          = "bg_set_default"
-	MethodBgSetPower            = "bg_set_power" // TODO:
+	MethodBgSetPower            = "bg_set_power"
 	MethodSetBgBright           = "bg_set_bright"
-	MethodSetBgAdjust           = "bg_set_adjust"    // TODO:
-	MethodBgToggle              = "bg_toggle"        // TODO:
+	MethodSetBgAdjust           = "bg_set_adjust" // TODO:
+	MethodBgToggle              = "bg_toggle"
 	MethodDevToggle             = "dev_toggle"       // TODO:
 	MethodAdjustBright          = "adjust_bright"    // TODO:
 	MethodAdjustCt              = "adjust_ct"        // TODO:
