@@ -15,12 +15,12 @@ const (
 	MethodSetPower              = "set_power"
 	MethodToggle                = "toggle"
 	MethodSetDefault            = "set_default"
-	MethodStartCF               = "start_cf"   // TODO:
-	MethodStopCF                = "stop_cf"    // TODO:
-	MethodSetScene              = "set_scene"  // TODO:
-	MethodCronAdd               = "cron_add"   // TODO:
-	MethodCronGet               = "cron_get"   // TODO:
-	MethodCronDelete            = "cron_del"   // TODO:
+	MethodStartCF               = "start_cf"  // TODO:
+	MethodStopCF                = "stop_cf"   // TODO:
+	MethodSetScene              = "set_scene" // TODO:
+	MethodCronAdd               = "cron_add"
+	MethodCronGet               = "cron_get"
+	MethodCronDelete            = "cron_del"
 	MethodSetAdjust             = "set_adjust" // TODO:
 	MethodSetMusic              = "set_music"  // TODO:
 	MethodSetName               = "set_name"
@@ -35,7 +35,7 @@ const (
 	MethodSetBgBright           = "bg_set_bright"
 	MethodSetBgAdjust           = "bg_set_adjust" // TODO:
 	MethodBgToggle              = "bg_toggle"
-	MethodDevToggle             = "dev_toggle"       // TODO:
+	MethodDevToggle             = "dev_toggle"
 	MethodAdjustBright          = "adjust_bright"    // TODO:
 	MethodAdjustCt              = "adjust_ct"        // TODO:
 	MethodAdjustColor           = "adjust_color"     // TODO:
@@ -44,7 +44,7 @@ const (
 	MethodBgAdjustColor         = "bg_adjust_color"  // TODO:
 )
 
-// Client is instance of yeelight SDK
+// Client isRaw instance of Yeelight SDK
 // Please use New() for creating
 type Client struct {
 	transport transportFn

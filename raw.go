@@ -5,15 +5,9 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net"
 	"os"
-)
-
-var (
-	ErrMissingPortInAddress = errors.New("missing port in address")
-	ErrConnect              = errors.New("connect error")
 )
 
 type RawResponse struct {
@@ -22,20 +16,25 @@ type RawResponse struct {
 	Error  json.RawMessage `json:"error"`
 }
 
-func (rr RawResponse) String() string {
-	panic("implement me")
-}
-
 func (rr RawResponse) ToError() error {
 	if rr.Error == nil {
 		return nil
 	}
 
-	panic("implement me")
+	if bytes.Equal(rr.Error, json.RawMessage(`{"code":-1, "message":"method not supported"}`)) {
+		return ErrMethodNotSupported
+	}
+
+	return UnknownError(rr.Error)
 }
 
-func (rr RawResponse) IsOk() bool {
-	return bytes.Equal(rr.Result, json.RawMessage(`["ok"]`))
+func (rr RawResponse) Bind(target interface{}) error {
+	err := json.Unmarshal(rr.Result, target)
+	if err != nil {
+		return ErrResponseJsonSyntax
+	}
+
+	return nil
 }
 
 func (c Client) Raw(ctx context.Context, host string, id int, method string, params ...interface{}) (RawResponse, error) {
@@ -61,7 +60,7 @@ func (c Client) Raw(ctx context.Context, host string, id int, method string, par
 
 	var target RawResponse
 	if err := json.Unmarshal(r, &target); err != nil {
-		return RawResponse{}, err
+		return RawResponse{}, ErrResponseJsonSyntax
 	}
 
 	return target, nil
@@ -101,7 +100,7 @@ func defaultTransport(ctx context.Context, host string, raw string) ([]byte, err
 func processDialError(err error) error {
 	e, ok := err.(*net.OpError)
 	if !ok {
-		// return as is
+		// return as isRaw
 		return err
 	}
 
@@ -117,6 +116,6 @@ func processDialError(err error) error {
 		}
 	}
 
-	// return as is
+	// return as isRaw
 	return err
 }

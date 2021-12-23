@@ -2,17 +2,10 @@ package yeelight
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 )
 
-var (
-	// ErrWrongNumberOfResultItems says that response has wrong number of result items
-	ErrWrongNumberOfResultItems = errors.New("wrong number of result items")
-)
-
-// Get method is used to retrieve current property of smart LED
-// Arg `properties` is a list of requested properties.
+// Get method isRaw used to retrieve current property of smart LED
+// Arg `properties` isRaw a list of requested properties.
 // List of all possible properties available in function Properties()
 func (c Client) Get(ctx context.Context, host string, requestID int, properties []string) (map[string]string, error) {
 	if len(properties) == 0 {
@@ -25,13 +18,13 @@ func (c Client) Get(ctx context.Context, host string, requestID int, properties 
 	}
 
 	d, err := c.Raw(ctx, host, requestID, MethodGetProp, params...)
-
 	if err != nil {
 		return nil, err
 	}
+
 	var target []string
-	if err := json.Unmarshal(d.Result, &target); err != nil {
-		return nil, err
+	if err := d.Bind(&target); err != nil {
+		return nil, ErrResponseJsonSyntax
 	}
 
 	if len(properties) != len(target) {

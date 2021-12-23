@@ -250,3 +250,36 @@ func TestClient_BackgroundToggle(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_DevToggle(t *testing.T) {
+	tests := map[string]struct {
+		tr transportFn
+
+		expErr error
+	}{
+		"correct": {
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				assert.Equal(t, testCtx, ctx)
+				assert.Equal(t, testHost, host)
+				assert.Equal(t, `{"id":123,"method":"dev_toggle","params":[]}`, raw)
+
+				return testResultOk, nil
+			},
+			expErr: nil,
+		},
+		"err_connection": {
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			err := Client{transport: tt.tr}.DevToggle(testCtx, testHost, testRequestID)
+
+			require.Equal(t, tt.expErr, err)
+		})
+	}
+}

@@ -9,10 +9,11 @@ import (
 )
 
 var (
-	testCtx       = context.Background()
-	testHost      = "im_test_home"
-	testRequestID = 123
-	testResultOk  = []byte(`{"id":123, "result":["ok"]}`)
+	testCtx         = context.Background()
+	testHost        = "im_test_home"
+	testRequestID   = 123
+	testResultOk    = []byte(`{"id":123, "result":["ok"]}`) // deprecated
+	testResultOkStr = `{"id":123, "result":["ok"]}`
 )
 
 func TestClient_Get(t *testing.T) {
