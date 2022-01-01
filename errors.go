@@ -11,12 +11,13 @@ var (
 	// ErrWrongAffect wrong affect name
 	ErrWrongAffect = errors.New("wrong affect name")
 
-	ErrDurationTooSmall      = errors.New("duration too small")
-	ErrWrongRGBValue         = errors.New("wrong RGB value")
-	ErrWrongHueValue         = errors.New("wrong Hue value")
-	ErrWrongSatValue         = errors.New("wrong Sat value")
-	ErrWrongBrightValue      = errors.New("wrong Bright value")
-	ErrWrongColorTemperature = errors.New("wrong color temperature")
+	ErrDurationTooSmall             = errors.New("duration too small")
+	ErrWrongRGBValue                = errors.New("wrong RGB value")
+	ErrWrongHueValue                = errors.New("wrong Hue value")
+	ErrWrongSatValue                = errors.New("wrong Sat value")
+	ErrWrongBrightValue             = errors.New("wrong Bright value")
+	ErrWrongColorTemperature        = errors.New("wrong color temperature")
+	ErrRequiredMinimumOneExpression = errors.New("required minimum one expression")
 )
 
 var (
@@ -31,4 +32,3 @@ type UnknownError string
 func (e UnknownError) Error() string {
 	return string(e)
 }
-

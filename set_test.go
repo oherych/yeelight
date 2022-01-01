@@ -615,3 +615,40 @@ func TestClient_SetBackgroundDefault(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_SetMusic(t *testing.T) {
+	const testMusicHost = "test_music_host"
+	const testMusicPost = 1234
+
+	tests := map[string]struct {
+		on bool
+
+		tr transportFn
+
+		expErr error
+	}{
+		"correct_on": {
+			on: true,
+			tr: isRaw(t, testResultOkStr, `{"id":123,"method":"set_music","params":[1,"test_music_host",1234]}`),
+		},
+		"correct_off": {
+			on: false,
+			tr: isRaw(t, testResultOkStr, `{"id":123,"method":"set_music","params":[0]}`),
+		},
+		"err_connection": {
+			on: true,
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			err := Client{transport: tt.tr}.SetMusic(testCtx, testHost, testRequestID, tt.on, testMusicHost, testMusicPost)
+
+			require.Equal(t, tt.expErr, err)
+		})
+	}
+}

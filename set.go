@@ -74,7 +74,9 @@ func (c Client) SetBackgroundDefault(ctx context.Context, host string, requestID
 }
 
 // SetMusic method is used to start or stop music mode on a device. Under music mode, no property will be reported and no message quota is checked.
-func (c Client) SetMusic(ctx context.Context, host string, requestID int, on bool, musicHost string, port string) error {
+// "musicHost" the IP address of the music server.
+// "port" the TCP port music application is listening on.
+func (c Client) SetMusic(ctx context.Context, host string, requestID int, on bool, musicHost string, port uint) error {
 	if on {
 		return c.rawWithOk(ctx, host, requestID, MethodSetMusic, 1, musicHost, port)
 	}

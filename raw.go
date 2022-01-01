@@ -49,15 +49,10 @@ func (c Client) Raw(ctx context.Context, host string, id int, method string, par
 		return RawResponse{}, err
 	}
 
-	c.log("Raw() params:", string(b))
-
 	r, err := c.transport(ctx, host, string(b))
 	if err != nil {
 		return RawResponse{}, err
 	}
-
-	c.log("Raw() result", string(r))
-
 	var target RawResponse
 	if err := json.Unmarshal(r, &target); err != nil {
 		return RawResponse{}, ErrResponseJsonSyntax
