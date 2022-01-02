@@ -151,3 +151,175 @@ func TestClient_AdjustBackgroundBright(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_AdjustColorTemperature(t *testing.T) {
+	tests := map[string]struct {
+		percentage int
+		duration   time.Duration
+
+		tr transportFn
+
+		expErr error
+	}{
+		"correct": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"adjust_ct","params":[50,60000]}`),
+		},
+		"wrong_percentage": {
+			percentage: -50,
+			duration:   time.Minute,
+			expErr:     ErrWrongPercentage,
+		},
+		"wrong_duration": {
+			percentage: 50,
+			duration:   time.Millisecond,
+			expErr:     ErrDurationTooSmall,
+		},
+		"err_connection": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			err := Client{host: testHost, transport: tt.tr}.AdjustColorTemperature(testCtx, tt.percentage, tt.duration)
+
+			require.Equal(t, tt.expErr, err)
+		})
+	}
+}
+
+func TestClient_AdjustBackgroundColorTemperature(t *testing.T) {
+	tests := map[string]struct {
+		percentage int
+		duration   time.Duration
+
+		tr transportFn
+
+		expErr error
+	}{
+		"correct": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"bg_adjust_ct","params":[50,60000]}`),
+		},
+		"wrong_percentage": {
+			percentage: -50,
+			duration:   time.Minute,
+			expErr:     ErrWrongPercentage,
+		},
+		"wrong_duration": {
+			percentage: 50,
+			duration:   time.Millisecond,
+			expErr:     ErrDurationTooSmall,
+		},
+		"err_connection": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			err := Client{host: testHost, transport: tt.tr}.AdjustBackgroundColorTemperature(testCtx, tt.percentage, tt.duration)
+
+			require.Equal(t, tt.expErr, err)
+		})
+	}
+}
+
+func TestClient_AdjustColor(t *testing.T) {
+	tests := map[string]struct {
+		percentage int
+		duration   time.Duration
+
+		tr transportFn
+
+		expErr error
+	}{
+		"correct": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"adjust_color","params":[50,60000]}`),
+		},
+		"wrong_percentage": {
+			percentage: -50,
+			duration:   time.Minute,
+			expErr:     ErrWrongPercentage,
+		},
+		"wrong_duration": {
+			percentage: 50,
+			duration:   time.Millisecond,
+			expErr:     ErrDurationTooSmall,
+		},
+		"err_connection": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			err := Client{host: testHost, transport: tt.tr}.AdjustColor(testCtx, tt.percentage, tt.duration)
+
+			require.Equal(t, tt.expErr, err)
+		})
+	}
+}
+
+func TestClient_AdjustBackgroundColor(t *testing.T) {
+	tests := map[string]struct {
+		percentage int
+		duration   time.Duration
+
+		tr transportFn
+
+		expErr error
+	}{
+		"correct": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"bg_adjust_color","params":[50,60000]}`),
+		},
+		"wrong_percentage": {
+			percentage: -50,
+			duration:   time.Minute,
+			expErr:     ErrWrongPercentage,
+		},
+		"wrong_duration": {
+			percentage: 50,
+			duration:   time.Millisecond,
+			expErr:     ErrDurationTooSmall,
+		},
+		"err_connection": {
+			percentage: 50,
+			duration:   time.Minute,
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return nil, ErrConnect
+			},
+			expErr: ErrConnect,
+		},
+	}
+
+	for testCase, tt := range tests {
+		t.Run(testCase, func(t *testing.T) {
+			err := Client{host: testHost, transport: tt.tr}.AdjustBackgroundColor(testCtx, tt.percentage, tt.duration)
+
+			require.Equal(t, tt.expErr, err)
+		})
+	}
+}

@@ -20,7 +20,7 @@ const (
 	MethodCronAdd               = "cron_add"
 	MethodCronGet               = "cron_get"
 	MethodCronDelete            = "cron_del"
-	MethodSetAdjust             = "set_adjust" // TODO:
+	MethodSetAdjust             = "set_adjust"
 	MethodSetMusic              = "set_music"
 	MethodSetName               = "set_name"
 	MethodSetBgRGB              = "bg_set_rgb"
@@ -32,16 +32,18 @@ const (
 	MethodBgSetDefault          = "bg_set_default"
 	MethodBgSetPower            = "bg_set_power"
 	MethodSetBgBright           = "bg_set_bright"
-	MethodSetBgAdjust           = "bg_set_adjust" // TODO:
+	MethodSetBgAdjust           = "bg_set_adjust"
 	MethodBgToggle              = "bg_toggle"
 	MethodDevToggle             = "dev_toggle"
-	MethodAdjustBright          = "adjust_bright"    // TODO:
-	MethodAdjustCt              = "adjust_ct"        // TODO:
-	MethodAdjustColor           = "adjust_color"     // TODO:
-	MethodBgAdjustBright        = "bg_adjust_bright" // TODO:
-	MethodBgAdjustCt            = "bg_adjust_ct"     // TODO:
-	MethodBgAdjustColor         = "bg_adjust_color"  // TODO:
+	MethodAdjustBright          = "adjust_bright"
+	MethodAdjustCt              = "adjust_ct"
+	MethodAdjustColor           = "adjust_color"
+	MethodBgAdjustBright        = "bg_adjust_bright"
+	MethodBgAdjustCt            = "bg_adjust_ct"
+	MethodBgAdjustColor         = "bg_adjust_color"
 )
+
+type transportFn func(ctx context.Context, host string, raw string) ([]byte, error)
 
 // Client isRaw instance of Yeelight SDK
 // Please use New() for creating
@@ -50,8 +52,6 @@ type Client struct {
 
 	transport transportFn
 }
-
-type transportFn func(ctx context.Context, host string, raw string) ([]byte, error)
 
 // New create new client
 func New(host string) Client {

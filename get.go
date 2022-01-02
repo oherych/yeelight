@@ -4,10 +4,10 @@ import (
 	"context"
 )
 
-// Get method isRaw used to retrieve current property of smart LED
+// GetProperties method isRaw used to retrieve current property of smart LED
 // Arg `properties` isRaw a list of requested properties.
 // List of all possible properties available in function Properties()
-func (c Client) Get(ctx context.Context, properties []string) (map[string]string, error) {
+func (c Client) GetProperties(ctx context.Context, properties []string) (map[string]string, error) {
 	if len(properties) == 0 {
 		return map[string]string{}, nil
 	}

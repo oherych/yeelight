@@ -18,7 +18,7 @@ type DiscoveryResultItem struct {
 	Power           bool
 }
 
-func (c Client) Discovery(timeout time.Duration) ([]DiscoveryResultItem, error) {
+func Discovery(timeout time.Duration) ([]DiscoveryResultItem, error) {
 	const discoverMSG = "M-SEARCH * HTTP/1.1\r\n HOST:239.255.255.250:1982\r\n MAN:\"ssdp:discover\"\r\n ST:wifi_bulb\r\n"
 	const ssdpAddr = "239.255.255.250:1982"
 

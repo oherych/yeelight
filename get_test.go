@@ -56,7 +56,7 @@ func TestClient_Get(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			got, err := Client{host: testHost, transport: tt.tr}.Get(testCtx, tt.properties)
+			got, err := Client{host: testHost, transport: tt.tr}.GetProperties(testCtx, tt.properties)
 
 			require.Equal(t, tt.expErr, err)
 			require.Equal(t, tt.exp, got)
