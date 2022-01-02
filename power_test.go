@@ -90,7 +90,7 @@ func TestClient_Power(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.Power(testCtx, testHost, testRequestID, tt.on, tt.mode, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.Power(testCtx, tt.on, tt.mode, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -178,7 +178,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.BackgroundPower(testCtx, testHost, testRequestID, tt.on, tt.mode, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.BackgroundPower(testCtx, tt.on, tt.mode, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -211,7 +211,7 @@ func TestClient_Toggle(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.Toggle(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.Toggle(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -244,7 +244,7 @@ func TestClient_BackgroundToggle(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.BackgroundToggle(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.BackgroundToggle(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -277,7 +277,7 @@ func TestClient_DevToggle(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.DevToggle(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.DevToggle(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})

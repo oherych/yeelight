@@ -37,7 +37,7 @@ func TestClient_SetName(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetName(testCtx, testHost, testRequestID, tt.name)
+			err := Client{host: testHost, transport: tt.tr}.SetName(testCtx, tt.name)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -97,7 +97,7 @@ func TestClient_SetColorTemperature(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetColorTemperature(testCtx, testHost, testRequestID, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetColorTemperature(testCtx, tt.value, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -157,7 +157,7 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetBackgroundColorTemperature(testCtx, testHost, testRequestID, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundColorTemperature(testCtx, tt.value, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -217,7 +217,7 @@ func TestClient_SetRGB(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetRGB(testCtx, testHost, testRequestID, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetRGB(testCtx, tt.value, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -277,7 +277,7 @@ func TestClient_SetBackgroundRGB(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetBackgroundRGB(testCtx, testHost, testRequestID, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundRGB(testCtx, tt.value, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -350,7 +350,7 @@ func TestClient_SetHSV(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetHSV(testCtx, testHost, testRequestID, tt.hue, tt.sat, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetHSV(testCtx, tt.hue, tt.sat, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -423,7 +423,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetBackgroundHSV(testCtx, testHost, testRequestID, tt.hue, tt.sat, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundHSV(testCtx, tt.hue, tt.sat, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -483,7 +483,7 @@ func TestClient_SetBright(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetBright(testCtx, testHost, testRequestID, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBright(testCtx, tt.value, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -543,7 +543,7 @@ func TestClient_SetBackgroundBright(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetBackgroundBright(testCtx, testHost, testRequestID, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundBright(testCtx, tt.value, tt.affect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -576,7 +576,7 @@ func TestClient_SetDefault(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetDefault(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.SetDefault(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -609,7 +609,7 @@ func TestClient_SetBackgroundDefault(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetBackgroundDefault(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundDefault(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -646,7 +646,7 @@ func TestClient_SetMusic(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.SetMusic(testCtx, testHost, testRequestID, tt.on, testMusicHost, testMusicPost)
+			err := Client{host: testHost, transport: tt.tr}.SetMusic(testCtx, tt.on, testMusicHost, testMusicPost)
 
 			require.Equal(t, tt.expErr, err)
 		})

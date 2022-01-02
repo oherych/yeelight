@@ -44,28 +44,28 @@ type FlowExpression struct {
 // StartColorFlow method is used to start a color flow. Color flow is a series of smart LED visible state changing.
 // It can be brightness changing, color changing or color temperature changing.
 // `count` is the total number of visible state changing before color flow stopped. 0 means infinite loop on the state changing.
-func (c Client) StartColorFlow(ctx context.Context, host string, requestID int, count int, action int, expressions []FlowExpression) error {
-	return c.startColorFlow(ctx, host, requestID, MethodStartCF, count, action, expressions)
+func (c Client) StartColorFlow(ctx context.Context, count int, action int, expressions []FlowExpression) error {
+	return c.startColorFlow(ctx, MethodStartCF, count, action, expressions)
 }
 
 // StartBackgroundColorFlow method is used to start a color flow. Color flow is a series of smart LED visible state changing.
 // It can be brightness changing, color changing or color temperature changing.
 // `count` is the total number of visible state changing before color flow stopped. 0 means infinite loop on the state changing.
-func (c Client) StartBackgroundColorFlow(ctx context.Context, host string, requestID int, count int, action int, expressions []FlowExpression) error {
-	return c.startColorFlow(ctx, host, requestID, MethodBgStartCF, count, action, expressions)
+func (c Client) StartBackgroundColorFlow(ctx context.Context, count int, action int, expressions []FlowExpression) error {
+	return c.startColorFlow(ctx, MethodBgStartCF, count, action, expressions)
 }
 
 // StopColorFlow method is used to stop a running color flow.
-func (c Client) StopColorFlow(ctx context.Context, host string, requestID int) error {
-	return c.stopColorFlow(ctx, host, requestID, MethodStopCF)
+func (c Client) StopColorFlow(ctx context.Context) error {
+	return c.stopColorFlow(ctx, MethodStopCF)
 }
 
 // StopBackgroundColorFlow method is used to stop a running color flow.
-func (c Client) StopBackgroundColorFlow(ctx context.Context, host string, requestID int) error {
-	return c.stopColorFlow(ctx, host, requestID, MethodBgStopCF)
+func (c Client) StopBackgroundColorFlow(ctx context.Context) error {
+	return c.stopColorFlow(ctx, MethodBgStopCF)
 }
 
-func (c Client) startColorFlow(ctx context.Context, host string, requestID int, method string, count int, action int, expressions []FlowExpression) error {
+func (c Client) startColorFlow(ctx context.Context, method string, count int, action int, expressions []FlowExpression) error {
 	if len(expressions) == 0 {
 		return ErrRequiredMinimumOneExpression
 	}
@@ -79,9 +79,9 @@ func (c Client) startColorFlow(ctx context.Context, host string, requestID int, 
 		expressionStr += fmt.Sprintf("%d,%d,%d,%d", exp.Duration.Milliseconds(), exp.Mode, exp.Value, exp.Brightness)
 	}
 
-	return c.rawWithOk(ctx, host, requestID, method, count, action, expressionStr)
+	return c.rawWithOk(ctx, method, count, action, expressionStr)
 }
 
-func (c Client) stopColorFlow(ctx context.Context, host string, requestID int, method string) error {
-	return c.rawWithOk(ctx, host, requestID, method)
+func (c Client) stopColorFlow(ctx context.Context, method string) error {
+	return c.rawWithOk(ctx, method)
 }

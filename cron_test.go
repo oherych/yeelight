@@ -37,7 +37,7 @@ func TestClient_AddCron(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.AddCron(testCtx, testHost, testRequestID, tt.on, testTimeout)
+			err := Client{host: testHost, transport: tt.tr}.AddCron(testCtx, tt.on, testTimeout)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -80,7 +80,7 @@ func TestClient_GetCron(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			got, err := Client{transport: tt.tr}.GetCron(testCtx, testHost, testRequestID, tt.on)
+			got, err := Client{host: testHost, transport: tt.tr}.GetCron(testCtx, tt.on)
 
 			require.Equal(t, tt.expErr, err)
 			require.Equal(t, tt.exp, got)
@@ -115,7 +115,7 @@ func TestClient_DeleteCron(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.DeleteCron(testCtx, testHost, testRequestID, tt.on)
+			err := Client{host: testHost, transport: tt.tr}.DeleteCron(testCtx, tt.on)
 
 			require.Equal(t, tt.expErr, err)
 		})

@@ -18,7 +18,7 @@ const (
 	PropertyBgFlowing    = "bg_flowing"
 	PropertyBgFlowParams = "bg_flow_params"
 	PropertyBgCt         = "bg_ct"
-	PropertyBgLMode      = "bg_lmode" // TODO: isRaw this property correct?
+	PropertyBgLMode      = "bg_lmode" // TODO: is this property correct?
 	PropertyBgBright     = "bg_bright"
 	PropertyBgRgb        = "bg_rgb"
 	PropertyBgHue        = "bg_hue"

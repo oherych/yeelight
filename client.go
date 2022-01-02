@@ -16,7 +16,7 @@ const (
 	MethodSetDefault            = "set_default"
 	MethodStartCF               = "start_cf"
 	MethodStopCF                = "stop_cf"
-	MethodSetScene              = "set_scene" // TODO:
+	MethodSetScene              = "set_scene" // TODO: implement me
 	MethodCronAdd               = "cron_add"
 	MethodCronGet               = "cron_get"
 	MethodCronDelete            = "cron_del"
@@ -28,7 +28,7 @@ const (
 	MethodSetBgColorTemperature = "bg_set_ct_abx"
 	MethodBgStartCF             = "bg_start_cf"
 	MethodBgStopCF              = "bg_stop_cf"
-	MethodBgSetScene            = "bg_set_scene" // TODO:
+	MethodBgSetScene            = "bg_set_scene" // TODO: implement me
 	MethodBgSetDefault          = "bg_set_default"
 	MethodBgSetPower            = "bg_set_power"
 	MethodSetBgBright           = "bg_set_bright"
@@ -46,12 +46,17 @@ const (
 // Client isRaw instance of Yeelight SDK
 // Please use New() for creating
 type Client struct {
+	host string
+
 	transport transportFn
 }
 
 type transportFn func(ctx context.Context, host string, raw string) ([]byte, error)
 
 // New create new client
-func New() Client {
-	return Client{transport: defaultTransport}
+func New(host string) Client {
+	return Client{
+		host:      host,
+		transport: defaultTransport,
+	}
 }

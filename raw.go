@@ -37,19 +37,20 @@ func (rr RawResponse) Bind(target interface{}) error {
 	return nil
 }
 
-func (c Client) Raw(ctx context.Context, host string, id int, method string, params ...interface{}) (RawResponse, error) {
+func (c Client) Raw(ctx context.Context, method string, params ...interface{}) (RawResponse, error) {
 	if params == nil {
 		params = []interface{}{}
 	}
 
-	payload := map[string]interface{}{"id": id, "method": method, "params": params}
+	// TODO: remove hardcoded id
+	payload := map[string]interface{}{"id": 123, "method": method, "params": params}
 
 	b, err := json.Marshal(payload)
 	if err != nil {
 		return RawResponse{}, err
 	}
 
-	r, err := c.transport(ctx, host, string(b))
+	r, err := c.transport(ctx, c.host, string(b))
 	if err != nil {
 		return RawResponse{}, err
 	}
@@ -61,8 +62,8 @@ func (c Client) Raw(ctx context.Context, host string, id int, method string, par
 	return target, nil
 }
 
-func (c Client) rawWithOk(ctx context.Context, host string, requestID int, method string, params ...interface{}) error {
-	d, err := c.Raw(ctx, host, requestID, method, params...)
+func (c Client) rawWithOk(ctx context.Context, method string, params ...interface{}) error {
+	d, err := c.Raw(ctx, method, params...)
 	if err != nil {
 		return err
 	}
@@ -79,6 +80,8 @@ func defaultTransport(ctx context.Context, host string, raw string) ([]byte, err
 	if err != nil {
 		return nil, processDialError(err)
 	}
+
+	// TODO: close?
 
 	if _, err := fmt.Fprint(conn, raw+crlf); err != nil {
 		return nil, err

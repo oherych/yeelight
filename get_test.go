@@ -11,7 +11,6 @@ import (
 var (
 	testCtx         = context.Background()
 	testHost        = "im_test_home"
-	testRequestID   = 123
 	testResultOk    = []byte(`{"id":123, "result":["ok"]}`) // deprecated
 	testResultOkStr = `{"id":123, "result":["ok"]}`
 )
@@ -57,7 +56,7 @@ func TestClient_Get(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			got, err := Client{transport: tt.tr}.Get(testCtx, testHost, testRequestID, tt.properties)
+			got, err := Client{host: testHost, transport: tt.tr}.Get(testCtx, tt.properties)
 
 			require.Equal(t, tt.expErr, err)
 			require.Equal(t, tt.exp, got)

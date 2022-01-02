@@ -7,7 +7,7 @@ import (
 // Get method isRaw used to retrieve current property of smart LED
 // Arg `properties` isRaw a list of requested properties.
 // List of all possible properties available in function Properties()
-func (c Client) Get(ctx context.Context, host string, requestID int, properties []string) (map[string]string, error) {
+func (c Client) Get(ctx context.Context, properties []string) (map[string]string, error) {
 	if len(properties) == 0 {
 		return map[string]string{}, nil
 	}
@@ -17,7 +17,7 @@ func (c Client) Get(ctx context.Context, host string, requestID int, properties 
 		params[i] = v
 	}
 
-	d, err := c.Raw(ctx, host, requestID, MethodGetProp, params...)
+	d, err := c.Raw(ctx, MethodGetProp, params...)
 	if err != nil {
 		return nil, err
 	}

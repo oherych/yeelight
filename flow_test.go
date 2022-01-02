@@ -38,7 +38,7 @@ func TestClient_StartColorFlow(t *testing.T) {
 		},
 		"empty_expressions": {
 			expressions: []FlowExpression{},
-			expErr: ErrRequiredMinimumOneExpression,
+			expErr:      ErrRequiredMinimumOneExpression,
 		},
 		"err_connection": {
 			expressions: testExpressions,
@@ -51,7 +51,7 @@ func TestClient_StartColorFlow(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.StartColorFlow(testCtx, testHost, testRequestID, testCount, testAction, tt.expressions)
+			err := Client{host: testHost, transport: tt.tr}.StartColorFlow(testCtx, testCount, testAction, tt.expressions)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -88,7 +88,7 @@ func TestClient_StartBackgroundColorFlow(t *testing.T) {
 		},
 		"empty_expressions": {
 			expressions: []FlowExpression{},
-			expErr: ErrRequiredMinimumOneExpression,
+			expErr:      ErrRequiredMinimumOneExpression,
 		},
 		"err_connection": {
 			expressions: testExpressions,
@@ -101,7 +101,7 @@ func TestClient_StartBackgroundColorFlow(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.StartBackgroundColorFlow(testCtx, testHost, testRequestID, testCount, testAction, tt.expressions)
+			err := Client{host: testHost, transport: tt.tr}.StartBackgroundColorFlow(testCtx, testCount, testAction, tt.expressions)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -128,7 +128,7 @@ func TestClient_StopColorFlow(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.StopColorFlow(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.StopColorFlow(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -155,7 +155,7 @@ func TestClient_StopBackgroundColorFlow(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{transport: tt.tr}.StopBackgroundColorFlow(testCtx, testHost, testRequestID)
+			err := Client{host: testHost, transport: tt.tr}.StopBackgroundColorFlow(testCtx)
 
 			require.Equal(t, tt.expErr, err)
 		})

@@ -9,8 +9,24 @@ func ValidateAffectDuration(affect string, duration time.Duration) error {
 		return ErrWrongAffect
 	}
 
+	if err := ValidateDuration(duration); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ValidateDuration(duration time.Duration) error {
 	if duration < (30 * time.Millisecond) {
 		return ErrDurationTooSmall
+	}
+
+	return nil
+}
+
+func ValidatePercentage(value int) error {
+	if value < 0 || value > 100 {
+		return ErrWrongPercentage
 	}
 
 	return nil
