@@ -1,3 +1,73 @@
+This is Yeelight SDK writen on Golang. Package supports 90% (for now) off all features present in the official documentation. 
+
+### Installation
+```sh
+go get github.com/oherych/yeelight
+```
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"github.com/oherych/yeelight"
+	"log"
+	"time"
+)
+
+
+func main()  {
+	ctx, _ := context.WithTimeout(context.Background(), 2 * time.Second)
+
+	devices, err := yeelight.Discovery(ctx)
+	if err != nil && !errors.Is(err, context.DeadlineExceeded) {
+		log.Fatalln(err)
+	}
+
+	for _, device := range devices {
+		fmt.Println(`------`)
+		fmt.Printf("Device '%s' [ID:%s Version:%s]\n", device.Name, device.ID, device.FirmwareVersion)
+		fmt.Printf("Adress: %s\n", device.Location)
+		fmt.Printf("Power: %s\n", power(device.Power))
+
+		// create new client for work with device
+		client := yeelight.New(device.Location)
+
+		// read all properties
+		properties, err := client.GetProperties(context.Background(), []string{yeelight.PropertyPower, yeelight.PropertyColorMode, yeelight.PropertyBright})
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		fmt.Println("Properties:")
+		for name, value := range properties {
+			fmt.Println("> ", name, ":", value)
+		}
+
+		// change power to ON
+		err = client.Power(context.Background(), true, yeelight.PowerModeDefault, yeelight.AffectSudden, time.Second)
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
+}
+
+
+func power(on bool) string {
+	if on {
+		return "ON"
+	}
+
+	return "OFF"
+}
+```
+
+### Support methods
+
 
 | Method  |  Yeelight  Method    |    State    |
 |-----------------------|--------------|-------------|

@@ -26,13 +26,3 @@ const (
 	PropertyNlBr         = "nl_br"
 	PropertyActiveMode   = "active_mode"
 )
-
-// Properties return a list of all susceptible properties
-func Properties() []string {
-	return []string{
-		PropertyPower, PropertyBright, PropertyCT, PropertyRGB, PropertyHue, PropertySat, PropertyColorMode,
-		PropertyFlowing, PropertyDelayOff, PropertyFlowParams, PropertyMusicOn, PropertyName, PropertyBgPower,
-		PropertyBgFlowing, PropertyBgFlowParams, PropertyBgCt, PropertyBgLMode, PropertyBgBright, PropertyBgRgb,
-		PropertyBgHue, PropertyBgSat, PropertyNlBr, PropertyActiveMode,
-	}
-}
