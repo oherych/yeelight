@@ -32,7 +32,7 @@ func ValidatePercentage(value int) error {
 	return nil
 }
 
-func ValidateRGB(value uint) error {
+func ValidateRGB(value int) error {
 	const maxRGB = 16777215 // (hex: 0xFFFFFF)
 
 	if value > maxRGB {
@@ -42,7 +42,7 @@ func ValidateRGB(value uint) error {
 	return nil
 }
 
-func ValidateHue(value uint) error {
+func ValidateHue(value int) error {
 	const maxHue = 359
 
 	if value > maxHue {
@@ -52,7 +52,7 @@ func ValidateHue(value uint) error {
 	return nil
 }
 
-func ValidateSat(value uint) error {
+func ValidateSat(value int) error {
 	const maxSat = 100
 
 	if value > maxSat {
@@ -62,7 +62,7 @@ func ValidateSat(value uint) error {
 	return nil
 }
 
-func ValidateBright(value uint) error {
+func ValidateBright(value int) error {
 	if value < 0 || value > 100 {
 		return ErrWrongBrightValue
 	}
@@ -70,7 +70,7 @@ func ValidateBright(value uint) error {
 	return nil
 }
 
-func ValidateColorTemperature(value uint) error {
+func ValidateColorTemperature(value int) error {
 	if value < 1700 || value > 6500 {
 		return ErrWrongColorTemperature
 	}

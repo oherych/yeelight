@@ -48,19 +48,17 @@ func Discovery(ctx context.Context) (items []DiscoveryResultItem, err error) {
 		items, err = readFromSocket(socket)
 	}()
 
-	select {
-	case <-ctx.Done():
-		_ = socket.Close()
+	<-ctx.Done()
 
-		wg.Wait()
+	_ = socket.Close()
 
-		if err == nil {
-			err = ctx.Err()
-		}
+	wg.Wait()
 
-		return
+	if err == nil {
+		err = ctx.Err()
 	}
 
+	return
 }
 
 func readFromSocket(socket *net.UDPConn) ([]DiscoveryResultItem, error) {
@@ -78,7 +76,11 @@ func readFromSocket(socket *net.UDPConn) ([]DiscoveryResultItem, error) {
 			return nil, err
 		}
 
-		item := readReadDiscoveryPayload(string(rsBuf[0:size]))
+		item, err := readReadDiscoveryPayload(string(rsBuf[0:size]))
+		if err != nil {
+			return nil, err
+		}
+
 		if unique[item.ID] {
 			continue
 		}
@@ -89,7 +91,7 @@ func readFromSocket(socket *net.UDPConn) ([]DiscoveryResultItem, error) {
 	}
 }
 
-func readReadDiscoveryPayload(in string) DiscoveryResultItem {
+func readReadDiscoveryPayload(in string) (DiscoveryResultItem, error) {
 	const crlf = "\r\n"
 
 	if strings.HasSuffix(in, crlf) {
@@ -98,7 +100,7 @@ func readReadDiscoveryPayload(in string) DiscoveryResultItem {
 
 	resp, err := http.ReadResponse(bufio.NewReader(strings.NewReader(in)), nil)
 	if err != nil {
-		panic(err)
+		return DiscoveryResultItem{}, err
 	}
 	defer resp.Body.Close()
 
@@ -110,5 +112,5 @@ func readReadDiscoveryPayload(in string) DiscoveryResultItem {
 		FirmwareVersion: resp.Header.Get("Fw_ver"),
 		Support:         strings.Split(resp.Header.Get("Support"), " "),
 		Power:           resp.Header.Get("Fw_ver") == "on",
-	}
+	}, nil
 }

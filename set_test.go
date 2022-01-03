@@ -46,7 +46,7 @@ func TestClient_SetName(t *testing.T) {
 
 func TestClient_SetColorTemperature(t *testing.T) {
 	tests := map[string]struct {
-		value    uint
+		value    int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -106,7 +106,7 @@ func TestClient_SetColorTemperature(t *testing.T) {
 
 func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 	tests := map[string]struct {
-		value    uint
+		value    int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -166,7 +166,7 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 
 func TestClient_SetRGB(t *testing.T) {
 	tests := map[string]struct {
-		value    uint
+		value    int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -226,7 +226,7 @@ func TestClient_SetRGB(t *testing.T) {
 
 func TestClient_SetBackgroundRGB(t *testing.T) {
 	tests := map[string]struct {
-		value    uint
+		value    int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -286,8 +286,8 @@ func TestClient_SetBackgroundRGB(t *testing.T) {
 
 func TestClient_SetHSV(t *testing.T) {
 	tests := map[string]struct {
-		hue      uint
-		sat      uint
+		hue      int
+		sat      int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -359,8 +359,8 @@ func TestClient_SetHSV(t *testing.T) {
 
 func TestClient_SetBackgroundHSV(t *testing.T) {
 	tests := map[string]struct {
-		hue      uint
-		sat      uint
+		hue      int
+		sat      int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -432,7 +432,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 
 func TestClient_SetBright(t *testing.T) {
 	tests := map[string]struct {
-		value    uint
+		value    int
 		affect   string
 		duration time.Duration
 		tr       transportFn
@@ -492,7 +492,7 @@ func TestClient_SetBright(t *testing.T) {
 
 func TestClient_SetBackgroundBright(t *testing.T) {
 	tests := map[string]struct {
-		value    uint
+		value    int
 		affect   string
 		duration time.Duration
 		tr       transportFn
