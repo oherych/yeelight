@@ -2,10 +2,11 @@ package yeelight
 
 import (
 	"bufio"
+	"context"
 	"net"
 	"net/http"
 	"strings"
-	"time"
+	"sync"
 )
 
 type DiscoveryResultItem struct {
@@ -18,33 +19,63 @@ type DiscoveryResultItem struct {
 	Power           bool
 }
 
-func Discovery(timeout time.Duration) ([]DiscoveryResultItem, error) {
+func Discovery(ctx context.Context) (items []DiscoveryResultItem, err error) {
 	const discoverMSG = "M-SEARCH * HTTP/1.1\r\n HOST:239.255.255.250:1982\r\n MAN:\"ssdp:discover\"\r\n ST:wifi_bulb\r\n"
 	const ssdpAddr = "239.255.255.250:1982"
 
-	ssdp, _ := net.ResolveUDPAddr("udp4", ssdpAddr)
-	con, _ := net.ListenPacket("udp4", ":0")
+	ssdp, err := net.ResolveUDPAddr("udp4", ssdpAddr)
+	if err != nil {
+		return nil, err
+	}
+
+	con, err := net.ListenPacket("udp4", ":0")
+	if err != nil {
+		return nil, err
+	}
+
 	socket := con.(*net.UDPConn)
 
 	if _, err := socket.WriteToUDP([]byte(discoverMSG), ssdp); err != nil {
 		return nil, err
 	}
 
-	if err := socket.SetReadDeadline(time.Now().Add(timeout)); err != nil {
-		return nil, err
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	go func() {
+		defer wg.Done()
+
+		items, err = readFromSocket(socket)
+	}()
+
+	select {
+	case <-ctx.Done():
+		_ = socket.Close()
+
+		wg.Wait()
+
+		if err == nil {
+			err = ctx.Err()
+		}
+
+		return
 	}
 
+}
+
+func readFromSocket(socket *net.UDPConn) ([]DiscoveryResultItem, error) {
 	items := make([]DiscoveryResultItem, 0)
 	unique := make(map[string]bool)
+
 	for {
 		rsBuf := make([]byte, 1024)
 
 		size, _, err := socket.ReadFromUDP(rsBuf)
-		if err, ok := err.(net.Error); ok && err.Timeout() {
-			break
+		if err, ok := err.(*net.OpError); ok && err.Err.Error() == "use of closed network connection" {
+			return items, nil
 		}
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 
 		item := readReadDiscoveryPayload(string(rsBuf[0:size]))
@@ -56,8 +87,6 @@ func Discovery(timeout time.Duration) ([]DiscoveryResultItem, error) {
 
 		unique[item.ID] = true
 	}
-
-	return items, nil
 }
 
 func readReadDiscoveryPayload(in string) DiscoveryResultItem {
