@@ -6,6 +6,9 @@ var (
 	// ErrWrongNumberOfResultItems says that response has wrong number of result items
 	ErrWrongNumberOfResultItems = errors.New("wrong number of result items")
 
+	// ErrCronIsUnset says that cron is unset
+	ErrCronIsUnset = errors.New("cron is unset")
+
 	// ErrWrongAffect wrong affect name
 	ErrWrongAffect = errors.New("wrong affect name")
 

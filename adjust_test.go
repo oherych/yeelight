@@ -81,7 +81,7 @@ func TestClient_AdjustBright(t *testing.T) {
 			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"adjust_bright","params":[50,60000]}`),
 		},
 		"wrong_percentage": {
-			percentage: -50,
+			percentage: -150,
 			duration:   time.Minute,
 			expErr:     ErrWrongPercentage,
 		},
@@ -124,7 +124,7 @@ func TestClient_AdjustBackgroundBright(t *testing.T) {
 			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"bg_adjust_bright","params":[50,60000]}`),
 		},
 		"wrong_percentage": {
-			percentage: -50,
+			percentage: -150,
 			duration:   time.Minute,
 			expErr:     ErrWrongPercentage,
 		},
@@ -167,7 +167,7 @@ func TestClient_AdjustColorTemperature(t *testing.T) {
 			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"adjust_ct","params":[50,60000]}`),
 		},
 		"wrong_percentage": {
-			percentage: -50,
+			percentage: -150,
 			duration:   time.Minute,
 			expErr:     ErrWrongPercentage,
 		},
@@ -210,7 +210,7 @@ func TestClient_AdjustBackgroundColorTemperature(t *testing.T) {
 			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"bg_adjust_ct","params":[50,60000]}`),
 		},
 		"wrong_percentage": {
-			percentage: -50,
+			percentage: -150,
 			duration:   time.Minute,
 			expErr:     ErrWrongPercentage,
 		},
@@ -253,7 +253,7 @@ func TestClient_AdjustColor(t *testing.T) {
 			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"adjust_color","params":[50,60000]}`),
 		},
 		"wrong_percentage": {
-			percentage: -50,
+			percentage: -150,
 			duration:   time.Minute,
 			expErr:     ErrWrongPercentage,
 		},
@@ -296,7 +296,7 @@ func TestClient_AdjustBackgroundColor(t *testing.T) {
 			tr:         isRaw(t, testResultOkStr, `{"id":123,"method":"bg_adjust_color","params":[50,60000]}`),
 		},
 		"wrong_percentage": {
-			percentage: -50,
+			percentage: -150,
 			duration:   time.Minute,
 			expErr:     ErrWrongPercentage,
 		},

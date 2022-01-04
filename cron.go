@@ -28,8 +28,7 @@ func (c Client) GetCron(ctx context.Context, on bool) (time.Duration, error) {
 	}
 
 	if len(target) < 1 {
-		// TODO: is this good idea return 0?
-		return 0, nil
+		return 0, ErrCronIsUnset
 	}
 
 	return time.Duration(target[0].Delay) * time.Minute, nil

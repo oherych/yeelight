@@ -59,8 +59,15 @@ func TestClient_GetCron(t *testing.T) {
 		},
 		"correct_off": {
 			on:  false,
-			tr:  isRaw(t, `{"id":1, "result":[]}`, `{"id":123,"method":"cron_get","params":[0]}`),
-			exp: 0,
+			tr:  isRaw(t, `{"id":1, "result":[{"type": 0, "delay": 15, "mix": 0}]}`, `{"id":123,"method":"cron_get","params":[0]}`),
+			exp: 15 * time.Minute,
+		},
+		"correct_is_unset": {
+			on: true,
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return []byte(`{"id":1, "result":[]}`), nil
+			},
+			expErr: ErrCronIsUnset,
 		},
 		"err_connection": {
 			on: true,
