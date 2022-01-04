@@ -41,6 +41,13 @@ func TestClient_Get(t *testing.T) {
 			},
 			expErr: ErrWrongNumberOfResultItems,
 		},
+		"bad_json": {
+			properties: []string{PropertyPower, PropertySat},
+			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
+				return []byte(`{"id":1, "result":"bad_value"}`), nil
+			},
+			expErr: ErrResponseJSONSyntax,
+		},
 		"empty_properties_list": {
 			properties: []string{},
 			exp:        map[string]string{},

@@ -9,11 +9,6 @@ const (
 	EffectSmooth Effect = "smooth"
 )
 
-// Effects return list of all supported effects
-func Effects() []Effect {
-	return []Effect{EffectSudden, EffectSmooth}
-}
-
 // FlowMode is enum of Flow Mode
 type FlowMode int
 

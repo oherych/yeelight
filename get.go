@@ -24,7 +24,7 @@ func (c Client) GetProperties(ctx context.Context, properties []string) (map[str
 
 	var target []string
 	if err := d.Bind(&target); err != nil {
-		return nil, ErrResponseJSONSyntax
+		return nil, err
 	}
 
 	if len(properties) != len(target) {
