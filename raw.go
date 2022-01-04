@@ -10,13 +10,15 @@ import (
 	"os"
 )
 
-type RawResponse struct {
+// CallResponse contains raw response from device.
+type CallResponse struct {
 	ID     int             `json:"id"`
 	Result json.RawMessage `json:"result"`
 	Error  json.RawMessage `json:"error"`
 }
 
-func (rr RawResponse) ToError() error {
+// ToError checks if the answer contains an error.
+func (rr CallResponse) ToError() error {
 	if rr.Error == nil {
 		return nil
 	}
@@ -28,16 +30,18 @@ func (rr RawResponse) ToError() error {
 	return UnknownError(rr.Error)
 }
 
-func (rr RawResponse) Bind(target interface{}) error {
+// Bind response result to provided variable
+func (rr CallResponse) Bind(target interface{}) error {
 	err := json.Unmarshal(rr.Result, target)
 	if err != nil {
-		return ErrResponseJsonSyntax
+		return ErrResponseJSONSyntax
 	}
 
 	return nil
 }
 
-func (c Client) Raw(ctx context.Context, method string, params ...interface{}) (RawResponse, error) {
+// Call method of device with provided parameters
+func (c Client) Call(ctx context.Context, method string, params ...interface{}) (CallResponse, error) {
 	if params == nil {
 		params = []interface{}{}
 	}
@@ -47,23 +51,23 @@ func (c Client) Raw(ctx context.Context, method string, params ...interface{}) (
 
 	b, err := json.Marshal(payload)
 	if err != nil {
-		return RawResponse{}, err
+		return CallResponse{}, err
 	}
 
 	r, err := c.transport(ctx, c.host, string(b))
 	if err != nil {
-		return RawResponse{}, err
+		return CallResponse{}, err
 	}
-	var target RawResponse
+	var target CallResponse
 	if err := json.Unmarshal(r, &target); err != nil {
-		return RawResponse{}, ErrResponseJsonSyntax
+		return CallResponse{}, ErrResponseJSONSyntax
 	}
 
 	return target, nil
 }
 
 func (c Client) rawWithOk(ctx context.Context, method string, params ...interface{}) error {
-	d, err := c.Raw(ctx, method, params...)
+	d, err := c.Call(ctx, method, params...)
 	if err != nil {
 		return err
 	}

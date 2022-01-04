@@ -17,14 +17,14 @@ func (c Client) GetProperties(ctx context.Context, properties []string) (map[str
 		params[i] = v
 	}
 
-	d, err := c.Raw(ctx, MethodGetProp, params...)
+	d, err := c.Call(ctx, MethodGetProp, params...)
 	if err != nil {
 		return nil, err
 	}
 
 	var target []string
 	if err := d.Bind(&target); err != nil {
-		return nil, ErrResponseJsonSyntax
+		return nil, ErrResponseJSONSyntax
 	}
 
 	if len(properties) != len(target) {

@@ -4,14 +4,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/oherych/yeelight"
 	"log"
 	"time"
+
+	"github.com/oherych/yeelight"
 )
 
-
-func main()  {
-	ctx, _ := context.WithTimeout(context.Background(), 2 * time.Second)
+func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
 
 	devices, err := yeelight.Discovery(ctx)
 	if err != nil && !errors.Is(err, context.DeadlineExceeded) {
@@ -21,7 +22,7 @@ func main()  {
 	for _, device := range devices {
 		fmt.Println(`------`)
 		fmt.Printf("Device '%s' [ID:%s Version:%s]\n", device.Name, device.ID, device.FirmwareVersion)
-		fmt.Printf("Adress: %s\n", device.Location)
+		fmt.Printf("Address: %s\n", device.Location)
 		fmt.Printf("Power: %s\n", power(device.Power))
 
 		// create new client for work with device
@@ -45,7 +46,6 @@ func main()  {
 		}
 	}
 }
-
 
 func power(on bool) string {
 	if on {

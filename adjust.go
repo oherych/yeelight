@@ -5,16 +5,20 @@ import (
 	"time"
 )
 
+// AdjustAction is enum of Adjust Actions
 type AdjustAction string
 
+// Adjust Actions options
 const (
 	AdjustActionIncrease AdjustAction = "increase"
 	AdjustActionDecrease AdjustAction = "decrease"
 	AdjustActionCircle   AdjustAction = "circle"
 )
 
+// AdjustProp is enum of Adjust Properties
 type AdjustProp string
 
+// Adjust Properties options
 const (
 	AdjustPropBright           AdjustProp = "bright"
 	AdjustPropColorTemperature AdjustProp = "ct"
@@ -66,11 +70,11 @@ func (c Client) setAdjust(ctx context.Context, method string, action AdjustActio
 }
 
 func (c Client) adjustValue(ctx context.Context, method string, percentage int, duration time.Duration) error {
-	if err := ValidatePercentage(percentage); err != nil {
+	if err := validatePercentage(percentage); err != nil {
 		return err
 	}
 
-	if err := ValidateDuration(duration); err != nil {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 

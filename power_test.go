@@ -11,7 +11,7 @@ import (
 
 func TestClient_Power(t *testing.T) {
 	tests := map[string]struct {
-		mode     int
+		mode     PowerMode
 		on       bool
 		affect   string
 		duration time.Duration
@@ -99,7 +99,7 @@ func TestClient_Power(t *testing.T) {
 
 func TestClient_BackgroundPower(t *testing.T) {
 	tests := map[string]struct {
-		mode     int
+		mode     PowerMode
 		on       bool
 		affect   string
 		duration time.Duration

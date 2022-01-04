@@ -15,7 +15,7 @@ func (c Client) AddCron(ctx context.Context, on bool, timeout time.Duration) err
 // GetCron method isRaw used to retrieve the setting of the current cron job of the specified type
 // parameter `on` currently can only be false. (means power off)
 func (c Client) GetCron(ctx context.Context, on bool) (time.Duration, error) {
-	d, err := c.Raw(ctx, MethodCronGet, c.boolToInt(on))
+	d, err := c.Call(ctx, MethodCronGet, c.boolToInt(on))
 	if err != nil {
 		return 0, err
 	}

@@ -85,11 +85,11 @@ func (c Client) SetMusic(ctx context.Context, on bool, musicHost string, port in
 }
 
 func (c Client) setColorTemperature(ctx context.Context, method string, value int, affect string, duration time.Duration) error {
-	if err := ValidateAffectDuration(affect, duration); err != nil {
+	if err := validateAffectDuration(affect, duration); err != nil {
 		return err
 	}
 
-	if err := ValidateColorTemperature(value); err != nil {
+	if err := validateColorTemperature(value); err != nil {
 		return err
 	}
 
@@ -97,11 +97,11 @@ func (c Client) setColorTemperature(ctx context.Context, method string, value in
 }
 
 func (c Client) setRGB(ctx context.Context, method string, value int, affect string, duration time.Duration) error {
-	if err := ValidateAffectDuration(affect, duration); err != nil {
+	if err := validateAffectDuration(affect, duration); err != nil {
 		return err
 	}
 
-	if err := ValidateRGB(value); err != nil {
+	if err := validateRGB(value); err != nil {
 		return err
 	}
 
@@ -109,15 +109,15 @@ func (c Client) setRGB(ctx context.Context, method string, value int, affect str
 }
 
 func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, affect string, duration time.Duration) error {
-	if err := ValidateAffectDuration(affect, duration); err != nil {
+	if err := validateAffectDuration(affect, duration); err != nil {
 		return err
 	}
 
-	if err := ValidateHue(hue); err != nil {
+	if err := validateHue(hue); err != nil {
 		return err
 	}
 
-	if err := ValidateSat(sat); err != nil {
+	if err := validateSat(sat); err != nil {
 		return err
 	}
 
@@ -125,11 +125,11 @@ func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, aff
 }
 
 func (c Client) setBright(ctx context.Context, method string, brightness int, affect string, duration time.Duration) error {
-	if err := ValidateAffectDuration(affect, duration); err != nil {
+	if err := validateAffectDuration(affect, duration); err != nil {
 		return err
 	}
 
-	if err := ValidateBright(brightness); err != nil {
+	if err := validateBright(brightness); err != nil {
 		return err
 	}
 

@@ -4,19 +4,19 @@ import (
 	"time"
 )
 
-func ValidateAffectDuration(affect string, duration time.Duration) error {
+func validateAffectDuration(affect string, duration time.Duration) error {
 	if !IsAffect(affect) {
 		return ErrWrongAffect
 	}
 
-	if err := ValidateDuration(duration); err != nil {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func ValidateDuration(duration time.Duration) error {
+func validateDuration(duration time.Duration) error {
 	if duration < (30 * time.Millisecond) {
 		return ErrDurationTooSmall
 	}
@@ -24,45 +24,45 @@ func ValidateDuration(duration time.Duration) error {
 	return nil
 }
 
-func ValidatePercentage(value int) error {
-	if value < 0 || value > 100 {
+func validatePercentage(value int) error {
+	if value < -100 || value > 100 {
 		return ErrWrongPercentage
 	}
 
 	return nil
 }
 
-func ValidateRGB(value int) error {
+func validateRGB(value int) error {
 	const maxRGB = 16777215 // (hex: 0xFFFFFF)
 
-	if value > maxRGB {
+	if value < 0 || value > maxRGB {
 		return ErrWrongRGBValue
 	}
 
 	return nil
 }
 
-func ValidateHue(value int) error {
+func validateHue(value int) error {
 	const maxHue = 359
 
-	if value > maxHue {
+	if value < 0 || value > maxHue {
 		return ErrWrongHueValue
 	}
 
 	return nil
 }
 
-func ValidateSat(value int) error {
+func validateSat(value int) error {
 	const maxSat = 100
 
-	if value > maxSat {
+	if value < 0 || value > maxSat {
 		return ErrWrongSatValue
 	}
 
 	return nil
 }
 
-func ValidateBright(value int) error {
+func validateBright(value int) error {
 	if value < 0 || value > 100 {
 		return ErrWrongBrightValue
 	}
@@ -70,7 +70,7 @@ func ValidateBright(value int) error {
 	return nil
 }
 
-func ValidateColorTemperature(value int) error {
+func validateColorTemperature(value int) error {
 	if value < 1700 || value > 6500 {
 		return ErrWrongColorTemperature
 	}

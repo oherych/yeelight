@@ -1,4 +1,6 @@
-This is Yeelight SDK writen on Golang. Package supports 90% (for now) off all features present in the official documentation. 
+# Installation SDK
+
+Yeelight SDK writen on Golang. Package supports 90% (for now) off all features present in the official documentation.
 
 ### Installation
 ```sh
@@ -21,7 +23,8 @@ import (
 
 
 func main()  {
-	ctx, _ := context.WithTimeout(context.Background(), 2 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
 
 	devices, err := yeelight.Discovery(ctx)
 	if err != nil && !errors.Is(err, context.DeadlineExceeded) {
@@ -65,46 +68,21 @@ func power(on bool) string {
 	return "OFF"
 }
 ```
+#### Output
+```text
+------
+Device 'my_super' [ID:0x00000000157ef201 Version:20]
+Address: 192.168.1.79:55443
+Power: OFF
+Properties:
+>  bright : 1
+>  power : on
+>  color_mode : 1
+```
 
-### Support methods
+### Contributing
+Unfortunately, I have only one device and I don't have it possible to test all features. I will be grateful for the help with testing and feedback. This is the main priority for the current period.
 
-
-| Method  |  Yeelight  Method    |    State    |
-|-----------------------|--------------|-------------|
-| Get()                 |  get_prop    | implemented |
-| SetColorTemperature() |  set_ct_abx  | implemented |
-| SetRGB()              |  set_rgb     | implemented |
-| TODO |  set_hsv  | implemented |
-| TODO |  set_bright  | implemented |
-| TODO |  set_power  | implemented |
-| TODO |  toggle  | implemented |
-| TODO |  set_default  | implemented |
-| TODO |  start_cf  | implemented |
-| TODO |  stop_cf  | implemented |
-| TODO |  set_scene  | implemented |
-| TODO |  cron_add  | implemented |
-| TODO |  cron_get  | implemented |
-| TODO |  cron_del  | implemented |
-| TODO |  set_adjust  | implemented |
-| TODO |  set_music  | implemented |
-| TODO |  set_name  | implemented |
-| TODO |  bg_set_rgb  | implemented |
-| TODO |  bg_set_hsv  | implemented |
-| TODO |  bg_set_ct_abx  | implemented |
-| TODO |  bg_start_cf  | implemented |
-| TODO |  bg_stop_cf  | implemented |
-| TODO |  bg_set_scene  | implemented |
-| TODO |  bg_set_default  | implemented |
-| TODO |  bg_set_power  | implemented |
-| TODO |  bg_set_bright  | implemented |
-| TODO |  bg_set_adjust  | implemented |
-| TODO |  bg_toggle  | implemented |
-| TODO |  dev_toggle  | implemented |
-| TODO |  adjust_bright  | implemented |
-| TODO |  adjust_ct  | implemented |
-| TODO |  adjust_color  | implemented |
-| TODO |  bg_adjust_bright  | implemented |
-| TODO |  bg_adjust_ct  | implemented |
-| TODO |  bg_adjust_color  | implemented |
-
-
+### TODO
+[ ] Implement methods `set_scene` and `bg_set_scene`
+[ ] Implement updates listener

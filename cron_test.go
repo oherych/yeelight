@@ -74,7 +74,7 @@ func TestClient_GetCron(t *testing.T) {
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return []byte(`{"id":1, "result":[{"delay" : "im_bad_value"}]}`), nil
 			},
-			expErr: ErrResponseJsonSyntax,
+			expErr: ErrResponseJSONSyntax,
 		},
 	}
 

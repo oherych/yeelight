@@ -5,22 +5,26 @@ import (
 	"time"
 )
 
+// PowerMode is enum of Power Modes
+type PowerMode int
+
+// Power Modes options
 const (
-	PowerModeDefault         = 0
-	PowerModeCT              = 1
-	PowerModeRGB             = 2
-	PowerModeHSV             = 3
-	PowerModeColorFlow       = 4
-	PowerModeColorNightLight = 5 // Ceiling light only
+	PowerModeDefault         PowerMode = 0
+	PowerModeCT              PowerMode = 1
+	PowerModeRGB             PowerMode = 2
+	PowerModeHSV             PowerMode = 3
+	PowerModeColorFlow       PowerMode = 4
+	PowerModeColorNightLight PowerMode = 5 // Ceiling light only
 )
 
 // Power method isRaw used to switch on or off the smart LED (software managed on/off).
-func (c Client) Power(ctx context.Context, on bool, mode int, affect string, duration time.Duration) error {
+func (c Client) Power(ctx context.Context, on bool, mode PowerMode, affect string, duration time.Duration) error {
 	return c.power(ctx, MethodSetPower, on, mode, affect, duration)
 }
 
 // BackgroundPower method isRaw used to switch on or off the smart LED (software managed on/off).
-func (c Client) BackgroundPower(ctx context.Context, on bool, mode int, affect string, duration time.Duration) error {
+func (c Client) BackgroundPower(ctx context.Context, on bool, mode PowerMode, affect string, duration time.Duration) error {
 	return c.power(ctx, MethodBgSetPower, on, mode, affect, duration)
 }
 
@@ -39,8 +43,8 @@ func (c Client) DevToggle(ctx context.Context) error {
 	return c.toggle(ctx, MethodDevToggle)
 }
 
-func (c Client) power(ctx context.Context, method string, on bool, mode int, affect string, duration time.Duration) error {
-	if err := ValidateAffectDuration(affect, duration); err != nil {
+func (c Client) power(ctx context.Context, method string, on bool, mode PowerMode, affect string, duration time.Duration) error {
+	if err := validateAffectDuration(affect, duration); err != nil {
 		return err
 	}
 
