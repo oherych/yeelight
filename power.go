@@ -19,12 +19,12 @@ const (
 )
 
 // Power method isRaw used to switch on or off the smart LED (software managed on/off).
-func (c Client) Power(ctx context.Context, on bool, mode PowerMode, effect string, duration time.Duration) error {
+func (c Client) Power(ctx context.Context, on bool, mode PowerMode, effect Effect, duration time.Duration) error {
 	return c.power(ctx, MethodSetPower, on, mode, effect, duration)
 }
 
 // BackgroundPower method isRaw used to switch on or off the smart LED (software managed on/off).
-func (c Client) BackgroundPower(ctx context.Context, on bool, mode PowerMode, effect string, duration time.Duration) error {
+func (c Client) BackgroundPower(ctx context.Context, on bool, mode PowerMode, effect Effect, duration time.Duration) error {
 	return c.power(ctx, MethodBgSetPower, on, mode, effect, duration)
 }
 
@@ -43,8 +43,8 @@ func (c Client) DevToggle(ctx context.Context) error {
 	return c.toggle(ctx, MethodDevToggle)
 }
 
-func (c Client) power(ctx context.Context, method string, on bool, mode PowerMode, effect string, duration time.Duration) error {
-	if err := validateEffectDuration(effect, duration); err != nil {
+func (c Client) power(ctx context.Context, method string, on bool, mode PowerMode, effect Effect, duration time.Duration) error {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 

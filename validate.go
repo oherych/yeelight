@@ -4,18 +4,6 @@ import (
 	"time"
 )
 
-func validateEffectDuration(effect string, duration time.Duration) error {
-	if !IsEffect(effect) {
-		return ErrWrongEffect
-	}
-
-	if err := validateDuration(duration); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func validateDuration(duration time.Duration) error {
 	if duration < (30 * time.Millisecond) {
 		return ErrDurationTooSmall

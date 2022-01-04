@@ -9,9 +9,6 @@ var (
 	// ErrCronIsUnset says that cron is unset
 	ErrCronIsUnset = errors.New("cron is unset")
 
-	// ErrWrongEffect wrong effect name
-	ErrWrongEffect = errors.New("wrong effect name")
-
 	// ErrDurationTooSmall says that duration too small
 	ErrDurationTooSmall = errors.New("duration too small")
 

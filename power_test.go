@@ -13,7 +13,7 @@ func TestClient_Power(t *testing.T) {
 	tests := map[string]struct {
 		mode     PowerMode
 		on       bool
-		effect   string
+		effect   Effect
 		duration time.Duration
 
 		tr transportFn
@@ -62,13 +62,6 @@ func TestClient_Power(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_effect": {
-			mode:     PowerModeDefault,
-			on:       true,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
-		},
 		"wrong_duration": {
 			mode:     PowerModeDefault,
 			on:       true,
@@ -101,7 +94,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 	tests := map[string]struct {
 		mode     PowerMode
 		on       bool
-		effect   string
+		effect   Effect
 		duration time.Duration
 
 		tr transportFn
@@ -149,13 +142,6 @@ func TestClient_BackgroundPower(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			mode:     PowerModeDefault,
-			on:       true,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			mode:     PowerModeDefault,

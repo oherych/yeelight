@@ -47,7 +47,7 @@ func TestClient_SetName(t *testing.T) {
 func TestClient_SetColorTemperature(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -65,12 +65,6 @@ func TestClient_SetColorTemperature(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			value:    2000,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    2000,
@@ -107,7 +101,7 @@ func TestClient_SetColorTemperature(t *testing.T) {
 func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -125,12 +119,6 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			value:    2000,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    2000,
@@ -167,7 +155,7 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 func TestClient_SetRGB(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -185,12 +173,6 @@ func TestClient_SetRGB(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			value:    10,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    0,
@@ -227,7 +209,7 @@ func TestClient_SetRGB(t *testing.T) {
 func TestClient_SetBackgroundRGB(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -245,12 +227,6 @@ func TestClient_SetBackgroundRGB(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			value:    10,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    0,
@@ -288,7 +264,7 @@ func TestClient_SetHSV(t *testing.T) {
 	tests := map[string]struct {
 		hue      int
 		sat      int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -307,13 +283,6 @@ func TestClient_SetHSV(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			hue:      10,
-			sat:      20,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			hue:      10,
@@ -361,7 +330,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 	tests := map[string]struct {
 		hue      int
 		sat      int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -380,13 +349,6 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			hue:      10,
-			sat:      20,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			hue:      10,
@@ -433,7 +395,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 func TestClient_SetBright(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -451,12 +413,6 @@ func TestClient_SetBright(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			value:    10,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    10,
@@ -493,7 +449,7 @@ func TestClient_SetBright(t *testing.T) {
 func TestClient_SetBackgroundBright(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		effect   string
+		effect   Effect
 		duration time.Duration
 		tr       transportFn
 
@@ -511,12 +467,6 @@ func TestClient_SetBackgroundBright(t *testing.T) {
 				return testResultOk, nil
 			},
 			expErr: nil,
-		},
-		"wrong_effect": {
-			value:    10,
-			effect:   "im_wrong_effect",
-			duration: time.Minute,
-			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    10,

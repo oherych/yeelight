@@ -5,26 +5,6 @@ import (
 	"time"
 )
 
-// AdjustAction is enum of Adjust Actions
-type AdjustAction string
-
-// Adjust Actions options
-const (
-	AdjustActionIncrease AdjustAction = "increase"
-	AdjustActionDecrease AdjustAction = "decrease"
-	AdjustActionCircle   AdjustAction = "circle"
-)
-
-// AdjustProp is enum of Adjust Properties
-type AdjustProp string
-
-// Adjust Properties options
-const (
-	AdjustPropBright           AdjustProp = "bright"
-	AdjustPropColorTemperature AdjustProp = "ct"
-	AdjustPropColor            AdjustProp = "color"
-)
-
 // SetAdjust method is used to change brightness, CT or color of a smart LED without knowing the current value, it's main used by controllers.
 func (c Client) SetAdjust(ctx context.Context, action AdjustAction, prop AdjustProp) error {
 	return c.setAdjust(ctx, MethodSetAdjust, action, prop)

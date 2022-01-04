@@ -12,52 +12,52 @@ func (c Client) SetName(ctx context.Context, name string) error {
 
 // SetColorTemperature method isRaw used to change the color temperature of a smart LED.
 // "value" isRaw the target color temperature. The type isRaw integer and range isRaw 1700 ~ 6500 (k).
-func (c Client) SetColorTemperature(ctx context.Context, value int, effect string, duration time.Duration) error {
+func (c Client) SetColorTemperature(ctx context.Context, value int, effect Effect, duration time.Duration) error {
 	return c.setColorTemperature(ctx, MethodSetColorTemperature, value, effect, duration)
 }
 
 // SetBackgroundColorTemperature method isRaw used to change the color temperature of a smart LED.
 // "value" isRaw the target color temperature. The type isRaw integer and range isRaw 1700 ~ 6500 (k).
-func (c Client) SetBackgroundColorTemperature(ctx context.Context, value int, effect string, duration time.Duration) error {
+func (c Client) SetBackgroundColorTemperature(ctx context.Context, value int, effect Effect, duration time.Duration) error {
 	return c.setColorTemperature(ctx, MethodSetBgColorTemperature, value, effect, duration)
 }
 
 // SetRGB method isRaw used to change the color of a smart LED
-func (c Client) SetRGB(ctx context.Context, value int, effect string, duration time.Duration) error {
+func (c Client) SetRGB(ctx context.Context, value int, effect Effect, duration time.Duration) error {
 	return c.setRGB(ctx, MethodSetRGB, value, effect, duration)
 }
 
 // SetBackgroundRGB method isRaw used to change the color of a smart LED
 // "value" isRaw the target color, whose type isRaw integer. It should be expressed in decimal integer ranges from 0 to 16777215 (hex: 0xFFFFFF)
-func (c Client) SetBackgroundRGB(ctx context.Context, value int, effect string, duration time.Duration) error {
+func (c Client) SetBackgroundRGB(ctx context.Context, value int, effect Effect, duration time.Duration) error {
 	return c.setRGB(ctx, MethodSetBgRGB, value, effect, duration)
 }
 
 // SetHSV method isRaw used to change the color of a smart LED
 // "hue" isRaw the target hue value, whose type isRaw integer. It should be expressed in decimal integer ranges from 0 to 359.
 // "sat" isRaw the target saturation value whose type isRaw integer. It's range isRaw 0 to 100.
-func (c Client) SetHSV(ctx context.Context, hue int, sat int, effect string, duration time.Duration) error {
+func (c Client) SetHSV(ctx context.Context, hue int, sat int, effect Effect, duration time.Duration) error {
 	return c.setHSV(ctx, MethodSetHSV, hue, sat, effect, duration)
 }
 
 // SetBackgroundHSV method isRaw used to change the color of a smart LED
 // "hue" isRaw the target hue value, whose type isRaw integer. It should be expressed in decimal integer ranges from 0 to 359.
 // "sat" isRaw the target saturation value whose type isRaw integer. It's range isRaw 0 to 100.
-func (c Client) SetBackgroundHSV(ctx context.Context, hue int, sat int, effect string, duration time.Duration) error {
+func (c Client) SetBackgroundHSV(ctx context.Context, hue int, sat int, effect Effect, duration time.Duration) error {
 	return c.setHSV(ctx, MethodSetBgHSV, hue, sat, effect, duration)
 }
 
 // SetBright method isRaw used to change the brightness of a smart LED.
 // "brightness" isRaw the target brightness. The type isRaw integer and ranges from 1 to 100.
 // The brightness isRaw a percentage instead of a absolute value. 100 means maximum brightness while 1 means the minimum brightness.
-func (c Client) SetBright(ctx context.Context, brightness int, effect string, duration time.Duration) error {
+func (c Client) SetBright(ctx context.Context, brightness int, effect Effect, duration time.Duration) error {
 	return c.setBright(ctx, MethodSetBright, brightness, effect, duration)
 }
 
 // SetBackgroundBright method isRaw used to change the brightness of a smart LED.
 // "brightness" isRaw the target brightness. The type isRaw integer and ranges from 1 to 100.
 // The brightness isRaw a percentage instead of a absolute value. 100 means maximum brightness while 1 means the minimum brightness.
-func (c Client) SetBackgroundBright(ctx context.Context, brightness int, effect string, duration time.Duration) error {
+func (c Client) SetBackgroundBright(ctx context.Context, brightness int, effect Effect, duration time.Duration) error {
 	return c.setBright(ctx, MethodSetBgBright, brightness, effect, duration)
 }
 
@@ -84,8 +84,8 @@ func (c Client) SetMusic(ctx context.Context, on bool, musicHost string, port in
 	return c.rawWithOk(ctx, MethodSetMusic, 0)
 }
 
-func (c Client) setColorTemperature(ctx context.Context, method string, value int, effect string, duration time.Duration) error {
-	if err := validateEffectDuration(effect, duration); err != nil {
+func (c Client) setColorTemperature(ctx context.Context, method string, value int, effect Effect, duration time.Duration) error {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 
@@ -96,8 +96,8 @@ func (c Client) setColorTemperature(ctx context.Context, method string, value in
 	return c.rawWithOk(ctx, method, value, effect, duration.Milliseconds())
 }
 
-func (c Client) setRGB(ctx context.Context, method string, value int, effect string, duration time.Duration) error {
-	if err := validateEffectDuration(effect, duration); err != nil {
+func (c Client) setRGB(ctx context.Context, method string, value int, effect Effect, duration time.Duration) error {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 
@@ -108,8 +108,8 @@ func (c Client) setRGB(ctx context.Context, method string, value int, effect str
 	return c.rawWithOk(ctx, method, value, effect, duration.Milliseconds())
 }
 
-func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, effect string, duration time.Duration) error {
-	if err := validateEffectDuration(effect, duration); err != nil {
+func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, effect Effect, duration time.Duration) error {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 
@@ -124,8 +124,8 @@ func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, eff
 	return c.rawWithOk(ctx, method, hue, sat, effect, duration.Milliseconds())
 }
 
-func (c Client) setBright(ctx context.Context, method string, brightness int, effect string, duration time.Duration) error {
-	if err := validateEffectDuration(effect, duration); err != nil {
+func (c Client) setBright(ctx context.Context, method string, brightness int, effect Effect, duration time.Duration) error {
+	if err := validateDuration(duration); err != nil {
 		return err
 	}
 
