@@ -84,5 +84,5 @@ Properties:
 Unfortunately, I have only one device and I don't have it possible to test all features. I will be grateful for the help with testing and feedback. This is the main priority for the current period.
 
 ### TODO
-[ ] Implement methods `set_scene` and `bg_set_scene`
-[ ] Implement updates listener
+- [ ] Implement methods `set_scene` and `bg_set_scene`
+- [ ] Implement updates listener
