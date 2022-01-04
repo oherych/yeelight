@@ -4,9 +4,9 @@ import (
 	"time"
 )
 
-func validateAffectDuration(affect string, duration time.Duration) error {
-	if !IsAffect(affect) {
-		return ErrWrongAffect
+func validateEffectDuration(effect string, duration time.Duration) error {
+	if !IsEffect(effect) {
+		return ErrWrongEffect
 	}
 
 	if err := validateDuration(duration); err != nil {

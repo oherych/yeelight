@@ -1,17 +1,17 @@
 package yeelight
 
-// Affects
+// Effects
 const (
-	AffectSudden = "sudden"
-	AffectSmooth = "smooth"
+	EffectSudden = "sudden"
+	EffectSmooth = "smooth"
 )
 
-// IsAffect return true if affect name isRaw correct
-func IsAffect(name string) bool {
-	return name == AffectSudden || name == AffectSmooth
+// IsEffect return true if effect name isRaw correct
+func IsEffect(name string) bool {
+	return name == EffectSudden || name == EffectSmooth
 }
 
-// Affects return list of all supported affects
-func Affects() []string {
-	return []string{AffectSudden, AffectSmooth}
+// Effects return list of all supported effects
+func Effects() []string {
+	return []string{EffectSudden, EffectSmooth}
 }

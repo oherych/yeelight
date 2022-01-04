@@ -47,7 +47,7 @@ func TestClient_SetName(t *testing.T) {
 func TestClient_SetColorTemperature(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -55,7 +55,7 @@ func TestClient_SetColorTemperature(t *testing.T) {
 	}{
 		"correct": {
 			value:    2000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -66,27 +66,27 @@ func TestClient_SetColorTemperature(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			value:    2000,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    2000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_color_temperature": {
 			value:    1500,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongColorTemperature,
 		},
 		"err_connection": {
 			value:    2000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -97,7 +97,7 @@ func TestClient_SetColorTemperature(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetColorTemperature(testCtx, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetColorTemperature(testCtx, tt.value, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -107,7 +107,7 @@ func TestClient_SetColorTemperature(t *testing.T) {
 func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -115,7 +115,7 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 	}{
 		"correct": {
 			value:    2000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -126,27 +126,27 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			value:    2000,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    2000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_color_temperature": {
 			value:    1500,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongColorTemperature,
 		},
 		"err_connection": {
 			value:    2000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -157,7 +157,7 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetBackgroundColorTemperature(testCtx, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundColorTemperature(testCtx, tt.value, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -167,7 +167,7 @@ func TestClient_SetBackgroundColorTemperature(t *testing.T) {
 func TestClient_SetRGB(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -175,7 +175,7 @@ func TestClient_SetRGB(t *testing.T) {
 	}{
 		"correct": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -186,27 +186,27 @@ func TestClient_SetRGB(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			value:    10,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    0,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_rgb": {
 			value:    20000000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongRGBValue,
 		},
 		"err_connection": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -217,7 +217,7 @@ func TestClient_SetRGB(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetRGB(testCtx, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetRGB(testCtx, tt.value, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -227,7 +227,7 @@ func TestClient_SetRGB(t *testing.T) {
 func TestClient_SetBackgroundRGB(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -235,7 +235,7 @@ func TestClient_SetBackgroundRGB(t *testing.T) {
 	}{
 		"correct": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -246,27 +246,27 @@ func TestClient_SetBackgroundRGB(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			value:    10,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    0,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_rgb": {
 			value:    20000000,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongRGBValue,
 		},
 		"err_connection": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -277,7 +277,7 @@ func TestClient_SetBackgroundRGB(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetBackgroundRGB(testCtx, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundRGB(testCtx, tt.value, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -288,7 +288,7 @@ func TestClient_SetHSV(t *testing.T) {
 	tests := map[string]struct {
 		hue      int
 		sat      int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -297,7 +297,7 @@ func TestClient_SetHSV(t *testing.T) {
 		"correct": {
 			hue:      10,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -308,38 +308,38 @@ func TestClient_SetHSV(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			hue:      10,
 			sat:      20,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			hue:      10,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_hue": {
 			hue:      9999,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongHueValue,
 		},
 		"wrong_sat": {
 			hue:      10,
 			sat:      9999,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongSatValue,
 		},
 		"err_connection": {
 			hue:      10,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -350,7 +350,7 @@ func TestClient_SetHSV(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetHSV(testCtx, tt.hue, tt.sat, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetHSV(testCtx, tt.hue, tt.sat, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -361,7 +361,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 	tests := map[string]struct {
 		hue      int
 		sat      int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -370,7 +370,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 		"correct": {
 			hue:      10,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -381,38 +381,38 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			hue:      10,
 			sat:      20,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			hue:      10,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_hue": {
 			hue:      9999,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongHueValue,
 		},
 		"wrong_sat": {
 			hue:      10,
 			sat:      9999,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongSatValue,
 		},
 		"err_connection": {
 			hue:      10,
 			sat:      20,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -423,7 +423,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetBackgroundHSV(testCtx, tt.hue, tt.sat, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundHSV(testCtx, tt.hue, tt.sat, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -433,7 +433,7 @@ func TestClient_SetBackgroundHSV(t *testing.T) {
 func TestClient_SetBright(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -441,7 +441,7 @@ func TestClient_SetBright(t *testing.T) {
 	}{
 		"correct": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -452,27 +452,27 @@ func TestClient_SetBright(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			value:    10,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_value": {
 			value:    101,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongBrightValue,
 		},
 		"err_connection": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -483,7 +483,7 @@ func TestClient_SetBright(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetBright(testCtx, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBright(testCtx, tt.value, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -493,7 +493,7 @@ func TestClient_SetBright(t *testing.T) {
 func TestClient_SetBackgroundBright(t *testing.T) {
 	tests := map[string]struct {
 		value    int
-		affect   string
+		effect   string
 		duration time.Duration
 		tr       transportFn
 
@@ -501,7 +501,7 @@ func TestClient_SetBackgroundBright(t *testing.T) {
 	}{
 		"correct": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -512,27 +512,27 @@ func TestClient_SetBackgroundBright(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			value:    10,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"wrong_value": {
 			value:    101,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			expErr:   ErrWrongBrightValue,
 		},
 		"err_connection": {
 			value:    10,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -543,7 +543,7 @@ func TestClient_SetBackgroundBright(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.SetBackgroundBright(testCtx, tt.value, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.SetBackgroundBright(testCtx, tt.value, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})

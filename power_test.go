@@ -13,7 +13,7 @@ func TestClient_Power(t *testing.T) {
 	tests := map[string]struct {
 		mode     PowerMode
 		on       bool
-		affect   string
+		effect   string
 		duration time.Duration
 
 		tr transportFn
@@ -23,7 +23,7 @@ func TestClient_Power(t *testing.T) {
 		"correct_on": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -37,7 +37,7 @@ func TestClient_Power(t *testing.T) {
 		"correct_on_mode": {
 			mode:     PowerModeRGB,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -51,7 +51,7 @@ func TestClient_Power(t *testing.T) {
 		"correct_off": {
 			mode:     PowerModeColorFlow,
 			on:       false,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -62,24 +62,24 @@ func TestClient_Power(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"err_connection": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -90,7 +90,7 @@ func TestClient_Power(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.Power(testCtx, tt.on, tt.mode, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.Power(testCtx, tt.on, tt.mode, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})
@@ -101,7 +101,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 	tests := map[string]struct {
 		mode     PowerMode
 		on       bool
-		affect   string
+		effect   string
 		duration time.Duration
 
 		tr transportFn
@@ -111,7 +111,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 		"correct_on": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -125,7 +125,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 		"correct_on_mode": {
 			mode:     PowerModeRGB,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -139,7 +139,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 		"correct_off": {
 			mode:     PowerModeColorFlow,
 			on:       false,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				assert.Equal(t, testCtx, ctx)
@@ -150,24 +150,24 @@ func TestClient_BackgroundPower(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		"wrong_affect": {
+		"wrong_effect": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   "im_wrong_affect",
+			effect:   "im_wrong_effect",
 			duration: time.Minute,
-			expErr:   ErrWrongAffect,
+			expErr:   ErrWrongEffect,
 		},
 		"wrong_duration": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: 10,
 			expErr:   ErrDurationTooSmall,
 		},
 		"err_connection": {
 			mode:     PowerModeDefault,
 			on:       true,
-			affect:   AffectSmooth,
+			effect:   EffectSmooth,
 			duration: time.Minute,
 			tr: func(ctx context.Context, host string, raw string) ([]byte, error) {
 				return nil, ErrConnect
@@ -178,7 +178,7 @@ func TestClient_BackgroundPower(t *testing.T) {
 
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
-			err := Client{host: testHost, transport: tt.tr}.BackgroundPower(testCtx, tt.on, tt.mode, tt.affect, tt.duration)
+			err := Client{host: testHost, transport: tt.tr}.BackgroundPower(testCtx, tt.on, tt.mode, tt.effect, tt.duration)
 
 			require.Equal(t, tt.expErr, err)
 		})

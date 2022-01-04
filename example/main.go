@@ -40,7 +40,7 @@ func main() {
 		}
 
 		// change power to ON
-		err = client.Power(context.Background(), true, yeelight.PowerModeDefault, yeelight.AffectSudden, time.Second)
+		err = client.Power(context.Background(), true, yeelight.PowerModeDefault, yeelight.EffectSudden, time.Second)
 		if err != nil {
 			log.Fatalln(err)
 		}
