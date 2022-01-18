@@ -1,3 +1,9 @@
+> ⚡ __Please pay attention that in January Yeelight disabled some LAN features. This library like all similar will work only with the older version of the device firmware. In my case on the version, v2.0.6_0041 discovery doesn't work.__
+>
+> __Right now I don't have information on when it will be back. You can find more information here__ https://forum.yeelight.com/t/topic/22664/127
+
+
+
 # Installation SDK
 
 Yeelight SDK writen on Golang. Package supports 90% (for now) off all features present in the official documentation.
