@@ -85,7 +85,7 @@ func defaultTransport(ctx context.Context, host string, raw string) ([]byte, err
 		return nil, processDialError(err)
 	}
 
-	// TODO: close?
+	defer conn.Close()
 
 	if _, err := fmt.Fprint(conn, raw+crlf); err != nil {
 		return nil, err

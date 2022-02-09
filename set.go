@@ -85,11 +85,11 @@ func (c Client) SetMusic(ctx context.Context, on bool, musicHost string, port in
 }
 
 func (c Client) setColorTemperature(ctx context.Context, method string, value int, effect Effect, duration time.Duration) error {
-	if err := validateDuration(duration); err != nil {
+	if err := ValidateDuration(duration); err != nil {
 		return err
 	}
 
-	if err := validateColorTemperature(value); err != nil {
+	if err := ValidateColorTemperature(value); err != nil {
 		return err
 	}
 
@@ -97,11 +97,11 @@ func (c Client) setColorTemperature(ctx context.Context, method string, value in
 }
 
 func (c Client) setRGB(ctx context.Context, method string, value int, effect Effect, duration time.Duration) error {
-	if err := validateDuration(duration); err != nil {
+	if err := ValidateDuration(duration); err != nil {
 		return err
 	}
 
-	if err := validateRGB(value); err != nil {
+	if err := ValidateRGB(value); err != nil {
 		return err
 	}
 
@@ -109,15 +109,15 @@ func (c Client) setRGB(ctx context.Context, method string, value int, effect Eff
 }
 
 func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, effect Effect, duration time.Duration) error {
-	if err := validateDuration(duration); err != nil {
+	if err := ValidateDuration(duration); err != nil {
 		return err
 	}
 
-	if err := validateHue(hue); err != nil {
+	if err := ValidateHue(hue); err != nil {
 		return err
 	}
 
-	if err := validateSat(sat); err != nil {
+	if err := ValidateSat(sat); err != nil {
 		return err
 	}
 
@@ -125,11 +125,11 @@ func (c Client) setHSV(ctx context.Context, method string, hue int, sat int, eff
 }
 
 func (c Client) setBright(ctx context.Context, method string, brightness int, effect Effect, duration time.Duration) error {
-	if err := validateDuration(duration); err != nil {
+	if err := ValidateDuration(duration); err != nil {
 		return err
 	}
 
-	if err := validateBright(brightness); err != nil {
+	if err := ValidateBright(brightness); err != nil {
 		return err
 	}
 

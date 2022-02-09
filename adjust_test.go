@@ -83,7 +83,7 @@ func TestClient_AdjustBright(t *testing.T) {
 		"wrong_percentage": {
 			percentage: -150,
 			duration:   time.Minute,
-			expErr:     ErrWrongPercentage,
+			expErr:     ErrWrongAdjustPercentage,
 		},
 		"wrong_duration": {
 			percentage: 50,
@@ -126,7 +126,7 @@ func TestClient_AdjustBackgroundBright(t *testing.T) {
 		"wrong_percentage": {
 			percentage: -150,
 			duration:   time.Minute,
-			expErr:     ErrWrongPercentage,
+			expErr:     ErrWrongAdjustPercentage,
 		},
 		"wrong_duration": {
 			percentage: 50,
@@ -169,7 +169,7 @@ func TestClient_AdjustColorTemperature(t *testing.T) {
 		"wrong_percentage": {
 			percentage: -150,
 			duration:   time.Minute,
-			expErr:     ErrWrongPercentage,
+			expErr:     ErrWrongAdjustPercentage,
 		},
 		"wrong_duration": {
 			percentage: 50,
@@ -212,7 +212,7 @@ func TestClient_AdjustBackgroundColorTemperature(t *testing.T) {
 		"wrong_percentage": {
 			percentage: -150,
 			duration:   time.Minute,
-			expErr:     ErrWrongPercentage,
+			expErr:     ErrWrongAdjustPercentage,
 		},
 		"wrong_duration": {
 			percentage: 50,
@@ -255,7 +255,7 @@ func TestClient_AdjustColor(t *testing.T) {
 		"wrong_percentage": {
 			percentage: -150,
 			duration:   time.Minute,
-			expErr:     ErrWrongPercentage,
+			expErr:     ErrWrongAdjustPercentage,
 		},
 		"wrong_duration": {
 			percentage: 50,
@@ -298,7 +298,7 @@ func TestClient_AdjustBackgroundColor(t *testing.T) {
 		"wrong_percentage": {
 			percentage: -150,
 			duration:   time.Minute,
-			expErr:     ErrWrongPercentage,
+			expErr:     ErrWrongAdjustPercentage,
 		},
 		"wrong_duration": {
 			percentage: 50,

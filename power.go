@@ -44,7 +44,7 @@ func (c Client) DevToggle(ctx context.Context) error {
 }
 
 func (c Client) power(ctx context.Context, method string, on bool, mode PowerMode, effect Effect, duration time.Duration) error {
-	if err := validateDuration(duration); err != nil {
+	if err := ValidateDuration(duration); err != nil {
 		return err
 	}
 
