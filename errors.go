@@ -12,8 +12,8 @@ var (
 	// ErrDurationTooSmall says that duration too small
 	ErrDurationTooSmall = errors.New("duration too small")
 
-	// ErrWrongPercentage says that wrong percentage
-	ErrWrongPercentage = errors.New("wrong percentage")
+	// ErrWrongAdjustPercentage says that wrong percentage
+	ErrWrongAdjustPercentage = errors.New("wrong percentage")
 
 	// ErrWrongRGBValue says that wrong RGB value
 	ErrWrongRGBValue = errors.New("wrong RGB value")

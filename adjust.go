@@ -50,11 +50,11 @@ func (c Client) setAdjust(ctx context.Context, method string, action AdjustActio
 }
 
 func (c Client) adjustValue(ctx context.Context, method string, percentage int, duration time.Duration) error {
-	if err := validatePercentage(percentage); err != nil {
+	if err := ValidateAdjustPercentage(percentage); err != nil {
 		return err
 	}
 
-	if err := validateDuration(duration); err != nil {
+	if err := ValidateDuration(duration); err != nil {
 		return err
 	}
 

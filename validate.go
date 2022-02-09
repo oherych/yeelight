@@ -4,62 +4,88 @@ import (
 	"time"
 )
 
-func validateDuration(duration time.Duration) error {
-	if duration < (30 * time.Millisecond) {
+const (
+	MinDuration = 30 * time.Millisecond
+
+	MinAdjustPercentage = -100
+	MaxAdjustPercentage = 100
+
+	MinRGB = 0
+	MaxRGB = 16777215 // (hex: 0xFFFFFF)
+
+	MinHue = 0
+	MaxHue = 359
+
+	MinSat = 0
+	MaxSat = 100
+
+	MinBright = 0
+	MaxBright = 100
+
+	MinColorTemperature = 1700
+	MaxColorTemperature = 6500
+)
+
+// ValidateDuration validate duration
+// validation rules in MinDuration
+func ValidateDuration(duration time.Duration) error {
+	if duration < MinDuration {
 		return ErrDurationTooSmall
 	}
 
 	return nil
 }
 
-func validatePercentage(value int) error {
-	if value < -100 || value > 100 {
-		return ErrWrongPercentage
+// ValidateAdjustPercentage validate percentage for adjust_* methods
+// validation rules in MinAdjustPercentage and MaxAdjustPercentage
+func ValidateAdjustPercentage(value int) error {
+	if value < MinAdjustPercentage || value > MaxAdjustPercentage {
+		return ErrWrongAdjustPercentage
 	}
 
 	return nil
 }
 
-func validateRGB(value int) error {
-	const maxRGB = 16777215 // (hex: 0xFFFFFF)
-
-	if value < 0 || value > maxRGB {
+// ValidateRGB validate rgb
+// validation rules in MinRGB and MaxRGB
+func ValidateRGB(value int) error {
+	if value < MinRGB || value > MaxRGB {
 		return ErrWrongRGBValue
 	}
 
 	return nil
 }
 
-func validateHue(value int) error {
-	const maxHue = 359
-
-	if value < 0 || value > maxHue {
+// ValidateHue validate hue
+// validation rules in MinHue and MaxHue
+func ValidateHue(value int) error {
+	if value < MinHue || value > MaxHue {
 		return ErrWrongHueValue
 	}
 
 	return nil
 }
 
-func validateSat(value int) error {
-	const maxSat = 100
-
-	if value < 0 || value > maxSat {
+// ValidateSat validate sat
+// validation rules in MinSat and MaxSat
+func ValidateSat(value int) error {
+	if value < MinSat || value > MaxSat {
 		return ErrWrongSatValue
 	}
 
 	return nil
 }
 
-func validateBright(value int) error {
-	if value < 0 || value > 100 {
+func ValidateBright(value int) error {
+	if value < MinBright || value > MaxBright {
 		return ErrWrongBrightValue
 	}
 
 	return nil
 }
 
-func validateColorTemperature(value int) error {
-	if value < 1700 || value > 6500 {
+func ValidateColorTemperature(value int) error {
+	if value < MinColorTemperature || value > MaxColorTemperature {
 		return ErrWrongColorTemperature
 	}
 
