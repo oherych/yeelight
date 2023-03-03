@@ -36,6 +36,7 @@ linters:
     - gomnd
     - godox # temporary
     - errorlint
+    - typecheck
 
     # deprecated
     - interfacer
