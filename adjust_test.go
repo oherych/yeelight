@@ -9,8 +9,8 @@ import (
 )
 
 func TestClient_SetAdjust(t *testing.T) {
-	var testAction = AdjustActionIncrease
-	var testProp = AdjustPropBright
+	testAction := AdjustActionIncrease
+	testProp := AdjustPropBright
 
 	tests := map[string]struct {
 		tr transportFn
@@ -38,8 +38,8 @@ func TestClient_SetAdjust(t *testing.T) {
 }
 
 func TestClient_SetBackgroundAdjust(t *testing.T) {
-	var testAction = AdjustActionIncrease
-	var testProp = AdjustPropBright
+	testAction := AdjustActionIncrease
+	testProp := AdjustPropBright
 
 	tests := map[string]struct {
 		tr transportFn

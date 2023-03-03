@@ -93,7 +93,7 @@ func defaultTransport(ctx context.Context, host string, raw string) ([]byte, err
 
 	res, err := bufio.NewReader(conn).ReadBytes('\n')
 	if err != nil {
-		return nil, fmt.Errorf("cannot read command result %s", err)
+		return nil, fmt.Errorf("cannot read command result %w", err)
 	}
 
 	return res, nil

@@ -1,0 +1,58 @@
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+
+output:
+  format: line-number
+
+  # Print lines of code with issue.
+  # Default: true
+  print-issued-lines: false
+
+
+  # Make issues output unique by line.
+  # Default: true
+  uniq-by-line: false
+
+
+
+linters:
+  enable-all: true
+  disable:
+    - wrapcheck
+    - varnamelen
+    - thelper
+    - testpackage
+    - paralleltest
+    - gochecknoglobals
+    - forcetypeassert
+    - wsl
+    - dupl
+    - nonamedreturns
+    - nakedret
+    - lll
+    - godot
+    - gomnd
+    - godox # temporary
+    - errorlint
+    - typecheck
+    - forbidigo
+
+    # deprecated
+    - interfacer
+    - varcheck
+    - nosnakecase
+    - deadcode
+    - scopelint
+    - structcheck
+    - golint
+    - ifshort
+    - exhaustivestruct
+    - maligned
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - funlen

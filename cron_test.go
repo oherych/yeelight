@@ -43,6 +43,7 @@ func TestClient_AddCron(t *testing.T) {
 		})
 	}
 }
+
 func TestClient_GetCron(t *testing.T) {
 	tests := map[string]struct {
 		on bool

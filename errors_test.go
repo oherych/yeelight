@@ -8,5 +8,4 @@ import (
 
 func TestUnknownError_Error(t *testing.T) {
 	assert.Equal(t, "im_test_error", UnknownError("im_test_error").Error())
-
 }
