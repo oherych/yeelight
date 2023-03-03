@@ -9,9 +9,9 @@ import (
 )
 
 func TestClient_StartColorFlow(t *testing.T) {
-	var testCount = 12
-	var testAction = FlowActionTurnOff
-	var testExpressions = []FlowExpression{
+	testCount := 12
+	testAction := FlowActionTurnOff
+	testExpressions := []FlowExpression{
 		{
 			Duration:   time.Minute,
 			Mode:       FlowModeColor,
@@ -59,9 +59,9 @@ func TestClient_StartColorFlow(t *testing.T) {
 }
 
 func TestClient_StartBackgroundColorFlow(t *testing.T) {
-	var testCount = 12
-	var testAction = FlowActionTurnOff
-	var testExpressions = []FlowExpression{
+	testCount := 12
+	testAction := FlowActionTurnOff
+	testExpressions := []FlowExpression{
 		{
 			Duration:   time.Minute,
 			Mode:       FlowModeColor,

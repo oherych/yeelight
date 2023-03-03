@@ -98,7 +98,7 @@ func readReadDiscoveryPayload(in string) (DiscoveryResultItem, error) {
 	const crlf = "\r\n"
 
 	if strings.HasSuffix(in, crlf) {
-		in = in + crlf
+		in += crlf
 	}
 
 	resp, err := http.ReadResponse(bufio.NewReader(strings.NewReader(in)), nil)
