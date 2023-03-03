@@ -10,6 +10,7 @@ import (
 	"github.com/oherych/yeelight"
 )
 
+//nolint:gocritic
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
